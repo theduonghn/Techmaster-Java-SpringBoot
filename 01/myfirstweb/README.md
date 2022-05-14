@@ -11,4 +11,5 @@
 4. http://localhost:8080/student có 2 phương thức: GET, POST
    GET: trả về danh sách tất cả các student hiện có List<Student>
    POST: tạo mới một student thêm vào danh sách List<Student>
+   ![image](https://user-images.githubusercontent.com/95962543/168411160-a831f348-fe35-404d-8aa9-d2a5dd0e3e09.png)
    ![image](https://user-images.githubusercontent.com/95962543/168410748-cbac470a-87aa-4dab-a490-8bbe59ce4e8b.png)
