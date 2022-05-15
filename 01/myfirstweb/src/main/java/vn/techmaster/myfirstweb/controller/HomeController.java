@@ -25,6 +25,20 @@ import vn.techmaster.myfirstweb.util.Util;
 @Controller
 @RequestMapping("/")
 public class HomeController {
+  List<String> quotes = new LinkedList<>();
+  List<Student> students = new LinkedList<>();
+
+  public HomeController() {
+    quotes.add("Kiến tha lâu đầy tổ");
+    quotes.add("Có công mài sắt, có ngày nên kim");
+    quotes.add("Không thầy đố mày làm nên");
+    quotes.add("Học thầy không tày học bạn");
+
+    students.add(new Student(1, "Duong", LocalDate.parse("1997-09-19")));
+    students.add(new Student(2, "Ngoc", LocalDate.parse("1998-03-17")));
+    students.add(new Student(3, "Linh", LocalDate.parse("1995-04-05")));
+  }
+
   @GetMapping(value = "/hi", produces = MediaType.TEXT_HTML_VALUE)
   @ResponseBody
   public String hello() {
@@ -89,13 +103,6 @@ public class HomeController {
   @GetMapping(value = "/quote")
   @ResponseBody
   public String quote() {
-    // TODO: move list to outside of method
-    List<String> quotes = new LinkedList<>();
-    quotes.add("Kiến tha lâu đầy tổ");
-    quotes.add("Có công mài sắt, có ngày nên kim");
-    quotes.add("Không thầy đố mày làm nên");
-    quotes.add("Học thầy không tày học bạn");
-
     return Util.getRandomStringFromList(quotes);
   }
 
@@ -110,22 +117,12 @@ public class HomeController {
   @GetMapping(value = "/student", produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
   public List<Student> getStudents() {
-    // TODO: move list to outside of method
-    List<Student> students = new LinkedList<>();
-    students.add(new Student(1, "Duong", LocalDate.parse("1997-09-19")));
-    students.add(new Student(2, "Ngoc", LocalDate.parse("1998-03-17")));
-    students.add(new Student(3, "Linh", LocalDate.parse("1995-04-05")));
     return students;
   }
 
   @PostMapping(value = "/student", produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
   public List<Student> addStudent(@RequestBody Student newStudent) {
-    // TODO: move list to outside of method
-    List<Student> students = new LinkedList<>();
-    students.add(new Student(1, "Duong", LocalDate.parse("1997-09-19")));
-    students.add(new Student(2, "Ngoc", LocalDate.parse("1998-03-17")));
-    students.add(new Student(3, "Linh", LocalDate.parse("1995-04-05")));
     students.add(newStudent);
     return students;
   }
