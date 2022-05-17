@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import vn.techmaster.myfirstweb.model.Location;
 import vn.techmaster.myfirstweb.dto.JobRequest;
 import vn.techmaster.myfirstweb.model.Job;
 import vn.techmaster.myfirstweb.service.JobService;
@@ -27,8 +28,10 @@ public class JobController {
 
     public JobController() {
         jobs = new ConcurrentHashMap<>();
-        jobs.put("J1", new Job("J1", "Waiter", "abc", "Hanoi", 5000000, 12000000, "abc@gmail.com"));
-        jobs.put("J2", new Job("J2", "Cleaner", "def", "Hai Phong", 4500000, 18000000, "def@gmail.com"));
+        jobs.put("J1",
+                new Job("J1", "Waiter", "abc", Location.fromString("Hanoi"), 5000000, 12000000, "abc@gmail.com"));
+        jobs.put("J2", new Job("J2", "Cleaner", "def", Location.fromString(
+                "Hai Phong"), 4500000, 18000000, "def@gmail.com"));
     }
 
     @GetMapping()
@@ -62,7 +65,7 @@ public class JobController {
             @RequestParam("location") String location,
             @RequestParam("keyword") String keyword) {
         return jobs.values().stream()
-                .filter(job -> job.getLocation().equalsIgnoreCase(location)
+                .filter(job -> job.getLocation().getValue().equalsIgnoreCase(location)
                         && JobService.containsKeyWord(job, keyword))
                 .toList();
     }
@@ -70,7 +73,8 @@ public class JobController {
     @PostMapping()
     public Job createJob(@RequestBody JobRequest jobRequest) {
         String id = UUID.randomUUID().toString();
-        Job newJob = new Job(id, jobRequest.title(), jobRequest.description(), jobRequest.location(),
+        Job newJob = new Job(id, jobRequest.title(), jobRequest.description(),
+                Location.fromString(jobRequest.location()),
                 jobRequest.min_salary(), jobRequest.max_salary(), jobRequest.email_to());
         jobs.put(id, newJob);
         return newJob;
@@ -78,7 +82,8 @@ public class JobController {
 
     @PutMapping("/{id}")
     public Job updateJob(@PathVariable("id") String id, @RequestBody JobRequest jobRequest) {
-        Job updatedJob = new Job(id, jobRequest.title(), jobRequest.description(), jobRequest.location(),
+        Job updatedJob = new Job(id, jobRequest.title(), jobRequest.description(),
+                Location.fromString(jobRequest.location()),
                 jobRequest.min_salary(), jobRequest.max_salary(), jobRequest.email_to());
         jobs.put(id, updatedJob);
         return updatedJob;
