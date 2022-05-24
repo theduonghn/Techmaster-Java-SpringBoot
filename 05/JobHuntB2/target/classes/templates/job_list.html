@@ -6,52 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link th:replace="~{template :: bootstrap}" />
     <link th:replace="~{template :: style}" />
-    <title>Danh sách nhà tuyển dụng</title>
+    <title>Danh sách việc làm</title>
   </head>
   <body>
     <header th:insert="~{template :: nav}"></header>
 
     <div class="container">
-      <h1>Danh sách nhà tuyển dụng</h1>
+      <h1>Danh sách việc làm</h1>
 
       <table class="table table-bordered">
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Tên</th>
-            <th scope="col">Logo</th>
-            <th scope="col">Website</th>
-            <th scope="col">Email</th>
+            <th scope="col">Nhà tuyển dụng</th>
+            <th scope="col">Tiêu đề</th>
+            <th scope="col">Mô tả</th>
+            <th scope="col">Thành phố</th>
+            <th scope="col">Cập nhật lúc</th>
+            <th scope="col">Khởi tạo lúc</th>
             <th scope="col">Tuỳ chọn</th>
           </tr>
         </thead>
         <tbody>
-          <tr th:each="employer, iStat:${employers}">
+          <tr th:each="job, iStat:${jobs}">
             <td th:text="${iStat.index} +1"></td>
-            <td th:text="${employer.name}"></td>
+            <td
+              th:text="${employerRepository.getEmployerById(job.emp_id).getName()}"
+            ></td>
+            <td th:text="${job.title}"></td>
+            <td th:text="${job.description}"></td>
+            <td th:text="${job.city.label}"></td>
+            <td th:text="${{job.updated_at}}"></td>
+            <td th:text="${{job.created_at}}"></td>
             <td>
-              <img
-                th:src="@{${'~/' + employer.logo_path}}"
-                alt=""
-                class="logo-small"
-              />
-            </td>
-            <td>
-              <a
-                th:href="${employer.website}"
-                th:text="${employer.website}"
-              ></a>
-            </td>
-            <td th:text="${employer.email}"></td>
-            <td>
-              <form th:action="@{${'update/' + employer.id}}" method="GET">
+              <form th:action="@{${'update/' + job.id}}" method="GET">
                 <input
                   class="btn btn-sm btn-secondary"
                   type="submit"
                   value="Update"
                 />
               </form>
-              <form th:action="@{${'delete/' + employer.id}}" method="GET">
+              <form th:action="@{${'delete/' + job.id}}" method="GET">
                 <input
                   class="btn btn-sm btn-danger mt-1"
                   type="submit"

@@ -1,5 +1,10 @@
 package vn.techmaster.jobhunt.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public enum City {
   AllCity("All cities"),
   HaNoi("Ha Noi"),
@@ -9,9 +14,4 @@ public enum City {
   Others("Others");
 
   public final String label;
-
-  private City(String label) {
-    this.label = label;
-  }
-
 }

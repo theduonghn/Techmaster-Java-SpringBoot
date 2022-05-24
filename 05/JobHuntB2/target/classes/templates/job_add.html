@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link th:replace="~{template :: bootstrap}" />
+    <link th:replace="~{template :: style}" />
+    <title>Thêm việc làm</title>
+  </head>
+  <body>
+    <header th:insert="~{template :: nav}"></header>
+
+    <div class="container">
+      <h1>Thêm việc làm</h1>
+
+      <form class="col-3" action="" th:object="${job}" method="POST">
+        <div class="mb-3">
+          <label for="name" class="form-label">emp_id</label>
+          <select class="form-select" name="emp_id">
+            <option
+              th:each="employer : ${employers}"
+              th:value="${employer.id}"
+              th:text="${employer.name}"
+            ></option>
+          </select>
+          <label for="title" class="form-label">Tiêu đề</label>
+          <input type="text" class="form-control" th:field="*{title}" />
+          <label for="description" class="form-label">Mô tả</label>
+          <input type="text" class="form-control" th:field="*{description}" />
+          <label for="city" class="form-label">Thành phố</label>
+          <select class="form-select" name="city">
+            <option
+              th:each="city : ${T(vn.techmaster.jobhunt.model.City).values()}"
+              th:value="${city}"
+              th:text="${city.label}"
+            ></option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-danger">Reset</button>
+      </form>
+    </div>
+  </body>
+
+  <script th:replace="~{template :: bootstrap-js}"></script>
+</html>

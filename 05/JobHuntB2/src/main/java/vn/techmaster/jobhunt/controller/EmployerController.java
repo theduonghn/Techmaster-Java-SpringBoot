@@ -37,14 +37,13 @@ public class EmployerController {
         return "employer_add";
     }
 
-    @PostMapping(value = "/add")
+    @PostMapping("/add")
     public String submitAddEmployer(@ModelAttribute EmployerRequest employerRequest) {
         String id = UUID.randomUUID().toString();
         storageService.uploadFile(employerRequest.logo());
         Employer employer = new Employer(id, employerRequest.name(),
                 employerRepository.logoPathFromLogo(employerRequest.logo()),
                 employerRequest.website(), employerRequest.email());
-        employerRepository.updateEmployer(employer);
         employerRepository.createEmployer(employer);
         // TODO: able to redirect to context relative link?
         return "redirect:/employer/list";

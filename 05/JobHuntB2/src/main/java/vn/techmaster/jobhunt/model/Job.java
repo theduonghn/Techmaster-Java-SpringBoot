@@ -2,6 +2,8 @@ package vn.techmaster.jobhunt.model;
 
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +19,10 @@ public class Job {
   private String title;
   private String description;
   private City city;
+
+  @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
   private LocalDateTime updated_at;
-  private  LocalDateTime created_at;
+
+  @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+  private LocalDateTime created_at;
 }
