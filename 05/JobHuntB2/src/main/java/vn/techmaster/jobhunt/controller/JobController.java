@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -44,6 +45,24 @@ public class JobController {
         Job job = new Job(id, jobRequest.emp_id(), jobRequest.title(), jobRequest.description(), jobRequest.city(),
                 LocalDateTime.now(), LocalDateTime.now());
         jobRepository.createJob(job);
+        return "redirect:/job/list";
+    }
+
+    @GetMapping("/update/{id}")
+    public String updateJob(Model model, @PathVariable String id) {
+        Job job = jobRepository.getJobById(id);
+        model.addAttribute("job", job);
+        model.addAttribute("employers", employerRepository.getEmployers());
+        return "job_update";
+    }
+
+    @PostMapping("/update/{id}")
+    public String submitUpdateJob(@PathVariable String id, @ModelAttribute JobRequest jobRequest) {
+        Job currentJob = jobRepository.getJobById(id);
+        LocalDateTime created_at = currentJob.getCreated_at();
+        Job job = new Job(id, jobRequest.emp_id(), jobRequest.title(), jobRequest.description(), jobRequest.city(),
+                LocalDateTime.now(), created_at);
+        jobRepository.updateJob(job);
         return "redirect:/job/list";
     }
 }

@@ -60,7 +60,7 @@ public class EmployerController {
 
     // TODO: khi submit ảnh và web redirect về trang employer/list, ảnh không hiện
     // ngay mà phải reload lại trang
-    @PostMapping(value = "/update/{id}")
+    @PostMapping("/update/{id}")
     public String submitUpdateEmployer(@PathVariable String id, @ModelAttribute EmployerRequest employerRequest) {
         storageService.uploadFile(employerRequest.logo());
         Employer employer = new Employer(id, employerRequest.name(),

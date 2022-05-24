@@ -16,7 +16,7 @@
 
       <form class="col-3" action="" th:object="${job}" method="POST">
         <div class="mb-3">
-          <label for="name" class="form-label">emp_id</label>
+          <label for="name" class="form-label">Nhà tuyển dụng</label>
           <select class="form-select" name="emp_id">
             <option
               th:each="employer : ${employers}"

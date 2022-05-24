@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link th:replace="~{template :: bootstrap}" />
     <link th:replace="~{template :: style}" />
-    <title>Thêm việc làm</title>
+    <title>Cập nhật việc làm</title>
   </head>
   <body>
     <header th:insert="~{template :: nav}"></header>
 
     <div class="container">
-      <h1>Thêm việc làm</h1>
+      <h1>Cập nhật việc làm</h1>
 
       <form class="col-3" action="" th:object="${job}" method="POST">
         <div class="mb-3">
@@ -22,6 +22,7 @@
               th:each="employer : ${employers}"
               th:value="${employer.id}"
               th:text="${employer.name}"
+              th:selected="${job.emp_id == employer.id}"
             ></option>
           </select>
           <label for="title" class="form-label">Tiêu đề</label>
@@ -34,6 +35,7 @@
               th:each="city : ${T(vn.techmaster.jobhunt.model.City).values()}"
               th:value="${city}"
               th:text="${city.label}"
+              th:selected="${job.city.label == city.label}"
             ></option>
           </select>
         </div>
