@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import vn.techmaster.jobhunt.model.Employer;
 import vn.techmaster.jobhunt.model.Job;
 import vn.techmaster.jobhunt.repository.EmployerRepository;
 import vn.techmaster.jobhunt.repository.JobRepository;
@@ -30,6 +31,15 @@ public class JobController {
         model.addAttribute("jobs", jobRepository.getJobs());
         model.addAttribute("employerRepository", employerRepository);
         return "job_list";
+    }
+
+    @GetMapping("/detail/{id}")
+    public String jobDetail(Model model, @PathVariable String id) {
+        Job job = jobRepository.getJobById(id);
+        Employer employer = employerRepository.getEmployerById(job.getEmp_id());
+        model.addAttribute("job", job);
+        model.addAttribute("employer", employer);
+        return "job_detail";
     }
 
     @GetMapping("/add")

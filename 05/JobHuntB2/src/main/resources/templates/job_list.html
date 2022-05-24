@@ -33,7 +33,9 @@
             <td
               th:text="${employerRepository.getEmployerById(job.emp_id).getName()}"
             ></td>
-            <td th:text="${job.title}"></td>
+            <td>
+              <a th:href="@{${'detail/' + job.id}}" th:text="${job.title}"></a>
+            </td>
             <td th:text="${job.description}"></td>
             <td th:text="${job.city.label}"></td>
             <td th:text="${{job.updated_at}}"></td>
