@@ -3,6 +3,7 @@ package vn.techmaster.jobhunt.repository;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,6 +12,9 @@ import vn.techmaster.jobhunt.model.Employer;
 @Repository
 public class EmployerRepository {
     String logoPath = "img/employer_logo/"; // TODO: refactor this path
+
+    @Autowired
+    private JobRepository jobRepository;
 
     ConcurrentHashMap<String, Employer> employers;
 
@@ -47,7 +51,10 @@ public class EmployerRepository {
     }
 
     public void deleteEmployerById(String id) {
+        // Remove employer
         employers.remove(id);
+        // Remove job by this employer
+        jobRepository.deleteJobsByEmployerId(id);
     }
 
     public String logoPathFromLogo(MultipartFile logo) {

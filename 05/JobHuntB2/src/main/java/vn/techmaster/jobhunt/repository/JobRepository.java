@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import vn.techmaster.jobhunt.model.City;
@@ -11,6 +12,9 @@ import vn.techmaster.jobhunt.model.Job;
 
 @Repository
 public class JobRepository {
+    @Autowired
+    private ApplicantRepository applicantRepository;
+
     ConcurrentHashMap<String, Job> jobs;
 
     public JobRepository() {
@@ -47,6 +51,18 @@ public class JobRepository {
     }
 
     public void deleteJobById(String id) {
+        // Remove job
         jobs.remove(id);
+        // Remove applicants of this job
+        applicantRepository.deleteApplicantsByJobId(id);
+    }
+
+    public void deleteJobsByEmployerId(String emp_id) {
+        for (String id : jobs.keySet()) {
+            Job job = getJobById(id);
+            if (job.getEmp_id().equals(emp_id)) {
+                deleteJobById(id);
+            }
+        }
     }
 }

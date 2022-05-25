@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link th:replace="~{template :: bootstrap}" />
+    <link th:replace="~{template :: style}" />
+    <title>Thêm ứng viên</title>
+  </head>
+  <body>
+    <header th:insert="~{template :: nav}"></header>
+
+    <div class="container mb-3">
+      <h1>Thêm ứng viên</h1>
+
+      <form class="col-6" action="" th:object="${applicant}" method="POST">
+        <div class="mb-3">
+          <label for="job_id" class="form-label">Việc làm</label>
+          <select class="form-select" th:field="*{job_id}">
+            <option
+              th:each="job : ${jobs}"
+              th:value="${job.id}"
+              th:text="${job.title + ' - ' + employerRepository.getEmployerById(job.emp_id).name}"
+            ></option>
+          </select>
+          <label for="name" class="form-label">Tên</label>
+          <input type="text" class="form-control" th:field="*{name}" />
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" th:field="*{email}" />
+          <label for="phone" class="form-label">Điện thoại</label>
+          <input type="tel" class="form-control" th:field="*{phone}" />
+          <label for="skills" class="form-label">Kỹ năng</label>
+          <div
+            th:each="skill : ${T(vn.techmaster.jobhunt.model.Skill).values()}"
+          >
+            <input type="checkbox" th:field="*{skills}" th:value="${skill}" />
+            <label th:for="${#ids.prev('skills')}" th:text="${skill.label}">
+            </label>
+          </div>
+          <label for="applyContent" class="form-label"
+            >Nội dung ứng tuyển</label
+          >
+          <textarea class="form-control" th:field="*{applyContent}"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-danger">Reset</button>
+      </form>
+    </div>
+  </body>
+
+  <script th:replace="~{template :: bootstrap-js}"></script>
+</html>

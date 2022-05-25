@@ -27,5 +27,5 @@ public class Applicant {
     private String email;
     private String phone;
     private List<Skill> skills;
-     
+    private String applyContent;
 }

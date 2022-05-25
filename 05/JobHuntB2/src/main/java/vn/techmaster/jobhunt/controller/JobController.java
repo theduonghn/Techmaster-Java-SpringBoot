@@ -75,4 +75,10 @@ public class JobController {
         jobRepository.updateJob(job);
         return "redirect:/job/list";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteJob(@PathVariable String id) {
+        jobRepository.deleteJobById(id);
+        return "redirect:/job/list";
+    }
 }

@@ -16,8 +16,8 @@
 
       <form class="col-3" action="" th:object="${job}" method="POST">
         <div class="mb-3">
-          <label for="name" class="form-label">Nhà tuyển dụng</label>
-          <select class="form-select" name="emp_id">
+          <label for="emp_id" class="form-label">Nhà tuyển dụng</label>
+          <select class="form-select" th:field="*{emp_id}">
             <option
               th:each="employer : ${employers}"
               th:value="${employer.id}"
@@ -29,7 +29,7 @@
           <label for="description" class="form-label">Mô tả</label>
           <input type="text" class="form-control" th:field="*{description}" />
           <label for="city" class="form-label">Thành phố</label>
-          <select class="form-select" name="city">
+          <select class="form-select" th:field="*{city}">
             <option
               th:each="city : ${T(vn.techmaster.jobhunt.model.City).values()}"
               th:value="${city}"

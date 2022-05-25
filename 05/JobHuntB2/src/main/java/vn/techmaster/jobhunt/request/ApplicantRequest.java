@@ -2,7 +2,6 @@ package vn.techmaster.jobhunt.request;
 
 import java.util.List;
 
-
 import vn.techmaster.jobhunt.model.Skill;
 
 /**
@@ -15,10 +14,10 @@ import vn.techmaster.jobhunt.model.Skill;
  */
 
 public record ApplicantRequest(
-        String id,
         String job_id,
         String name,
         String email,
         String phone,
-        List<Skill> skills) {
+        List<Skill> skills,
+        String applyContent) {
 }

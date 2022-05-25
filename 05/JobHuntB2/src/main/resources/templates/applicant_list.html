@@ -19,10 +19,12 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Việc làm</th>
-            <th scope="col">Tên</th>
+            <th scope="col">Nhà tuyển dụng</th>
+            <th scope="col">Tên ứng viên</th>
             <th scope="col">Email</th>
             <th scope="col">Điện thoại</th>
             <th scope="col">Kỹ năng</th>
+            <th scope="col">Nội dung ứng tuyển</th>
             <th scope="col">Tuỳ chọn</th>
           </tr>
         </thead>
@@ -32,10 +34,14 @@
             <td
               th:text="${jobRepository.getJobById(applicant.job_id).title}"
             ></td>
+            <td
+              th:text="${employerRepository.getEmployerById(jobRepository.getJobById(applicant.job_id).emp_id).name}"
+            ></td>
             <td th:text="${applicant.name}"></td>
             <td th:text="${applicant.email}"></td>
             <td th:text="${applicant.phone}"></td>
             <td th:text="${applicant.skills}"></td>
+            <td th:text="${applicant.applyContent}"></td>
             <td>
               <form th:action="@{${'update/' + applicant.id}}" method="GET">
                 <input

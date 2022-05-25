@@ -10,7 +10,7 @@
   </head>
   <body>
     <header th:insert="~{template :: nav}"></header>
-    
+
     <div class="container">
       <h1>Cập nhật nhà tuyển dụng</h1>
       <form
@@ -26,9 +26,9 @@
           <label for="logo" class="form-label">Logo</label>
           <input type="file" class="form-control" th:field="*{logo}" />
           <label for="website" class="form-label">Website</label>
-          <input type="text" class="form-control" th:field="*{website}" />
+          <input type="url" class="form-control" th:field="*{website}" />
           <label for="email" class="form-label">Email</label>
-          <input type="text" class="form-control" th:field="*{email}" />
+          <input type="email" class="form-control" th:field="*{email}" />
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
         <button type="reset" class="btn btn-danger">Reset</button>
