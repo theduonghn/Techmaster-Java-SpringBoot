@@ -26,6 +26,8 @@ public class JobController {
     @Autowired
     private EmployerRepository employerRepository;
 
+    private static final String REDIRECT_JOB_LIST = "redirect:/job/list";
+
     @GetMapping("/list")
     public String jobList(Model model) {
         model.addAttribute("jobs", jobRepository.getJobs());
@@ -55,7 +57,7 @@ public class JobController {
         Job job = new Job(id, jobRequest.emp_id(), jobRequest.title(), jobRequest.description(), jobRequest.city(),
                 LocalDateTime.now(), LocalDateTime.now());
         jobRepository.createJob(job);
-        return "redirect:/job/list";
+        return REDIRECT_JOB_LIST;
     }
 
     @GetMapping("/update/{id}")
@@ -73,12 +75,12 @@ public class JobController {
         Job job = new Job(id, jobRequest.emp_id(), jobRequest.title(), jobRequest.description(), jobRequest.city(),
                 LocalDateTime.now(), created_at);
         jobRepository.updateJob(job);
-        return "redirect:/job/list";
+        return REDIRECT_JOB_LIST;
     }
 
     @GetMapping("/delete/{id}")
     public String deleteJob(@PathVariable String id) {
         jobRepository.deleteJobById(id);
-        return "redirect:/job/list";
+        return REDIRECT_JOB_LIST;
     }
 }

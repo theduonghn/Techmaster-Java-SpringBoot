@@ -24,6 +24,8 @@ public class EmployerController {
     @Autowired
     private EmployerRepository employerRepository;
 
+    private static final String REDIRECT_EMPLOYER_LIST = "redirect:/employer/list";
+
     @GetMapping("/list")
     public String employerList(Model model) {
         model.addAttribute("employers", employerRepository.getEmployers());
@@ -45,8 +47,7 @@ public class EmployerController {
                 employerRepository.logoPathFromLogo(employerRequest.logo()),
                 employerRequest.website(), employerRequest.email());
         employerRepository.createEmployer(employer);
-        // TODO: able to redirect to context relative link?
-        return "redirect:/employer/list";
+        return REDIRECT_EMPLOYER_LIST;
     }
 
     @GetMapping("/update/{id}")
@@ -67,12 +68,12 @@ public class EmployerController {
                 employerRepository.logoPathFromLogo(employerRequest.logo()),
                 employerRequest.website(), employerRequest.email());
         employerRepository.updateEmployer(employer);
-        return "redirect:/employer/list";
+        return REDIRECT_EMPLOYER_LIST;
     }
 
     @GetMapping("/delete/{id}")
     public String deleteEmployer(@PathVariable String id) {
         employerRepository.deleteEmployerById(id);
-        return "redirect:/employer/list";
+        return REDIRECT_EMPLOYER_LIST;
     }
 }
