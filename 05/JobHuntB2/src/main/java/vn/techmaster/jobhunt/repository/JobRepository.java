@@ -1,7 +1,7 @@
 package vn.techmaster.jobhunt.repository;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +34,8 @@ public class JobRepository {
                         LocalDateTime.now()));
     }
 
-    public List<Job> getJobs() {
-        return jobs.values().stream().toList();
+    public Collection<Job> getJobs() {
+        return jobs.values();
     }
 
     public Job getJobById(String id) {

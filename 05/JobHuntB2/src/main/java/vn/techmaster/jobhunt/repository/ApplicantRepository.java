@@ -1,5 +1,6 @@
 package vn.techmaster.jobhunt.repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -24,8 +25,8 @@ public class ApplicantRepository {
                 List.of(Skill.AWS, Skill.CSharp, Skill.Java, Skill.SQL), "Content 4"));
     }
 
-    public List<Applicant> getApplicants() {
-        return applicants.values().stream().toList();
+    public Collection<Applicant> getApplicants() {
+        return applicants.values();
     }
 
     public Applicant getApplicantById(String id) {

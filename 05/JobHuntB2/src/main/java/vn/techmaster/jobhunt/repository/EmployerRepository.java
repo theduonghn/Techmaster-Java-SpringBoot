@@ -1,5 +1,6 @@
 package vn.techmaster.jobhunt.repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -34,8 +35,8 @@ public class EmployerRepository {
                         "google@mail.com"));
     }
 
-    public List<Employer> getEmployers() {
-        return employers.values().stream().toList();
+    public Collection<Employer> getEmployers() {
+        return employers.values();
     }
 
     public Employer getEmployerById(String id) {
