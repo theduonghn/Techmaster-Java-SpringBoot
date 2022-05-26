@@ -63,10 +63,16 @@ public class EmployerController {
     // ngay mà phải reload lại trang
     @PostMapping("/update/{id}")
     public String submitUpdateEmployer(@PathVariable String id, @ModelAttribute EmployerRequest employerRequest) {
-        storageService.uploadFile(employerRequest.logo());
+        Employer currentEmployer = employerRepository.getEmployerById(id);
+        String logo_path;
+        if (!employerRequest.logo().isEmpty()) {
+            storageService.uploadFile(employerRequest.logo());
+            logo_path = employerRepository.logoPathFromLogo(employerRequest.logo());
+        } else {
+            logo_path = currentEmployer.getLogo_path();
+        }
         Employer employer = new Employer(id, employerRequest.name(),
-                employerRepository.logoPathFromLogo(employerRequest.logo()),
-                employerRequest.website(), employerRequest.email());
+                logo_path, employerRequest.website(), employerRequest.email());
         employerRepository.updateEmployer(employer);
         return REDIRECT_EMPLOYER_LIST;
     }
