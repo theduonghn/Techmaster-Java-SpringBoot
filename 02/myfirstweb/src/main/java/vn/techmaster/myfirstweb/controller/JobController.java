@@ -42,7 +42,7 @@ public class JobController {
     @GetMapping("/sortbylocation")
     public List<Job> getJobsSortByLocation() {
         List<Job> result = jobs.values().stream().collect(Collectors.toList());
-        Collections.sort(result, (o1, o2) -> o1.getLocation().compareTo(o2.getLocation()));
+        Collections.sort(result, (o1, o2) -> o1.getLocation().getValue().compareTo(o2.getLocation().getValue()));
         return result;
     }
 
