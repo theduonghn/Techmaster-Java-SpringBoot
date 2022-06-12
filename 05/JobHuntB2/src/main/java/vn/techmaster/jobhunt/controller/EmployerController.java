@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import vn.techmaster.jobhunt.model.Employer;
 import vn.techmaster.jobhunt.repository.EmployerRepository;
 import vn.techmaster.jobhunt.request.EmployerRequest;
-import vn.techmaster.jobhunt.service.StorageService;
+import vn.techmaster.jobhunt.service.FileService;
 
 @Controller
 @RequestMapping("/employer")
 public class EmployerController {
     @Autowired
-    private StorageService storageService;
+    private FileService fileService;
     @Autowired
     private EmployerRepository employerRepository;
 
@@ -42,9 +42,9 @@ public class EmployerController {
     @PostMapping("/add")
     public String submitAddEmployer(@ModelAttribute EmployerRequest employerRequest) {
         String id = UUID.randomUUID().toString();
-        storageService.uploadFile(employerRequest.logo());
+        fileService.uploadEmployerLogo(id, employerRequest.logo());
         Employer employer = new Employer(id, employerRequest.name(),
-                employerRepository.logoPathFromLogo(employerRequest.logo()),
+                employerRepository.logoPathFromLogo(id, employerRequest.logo()),
                 employerRequest.website(), employerRequest.email());
         employerRepository.createEmployer(employer);
         return REDIRECT_EMPLOYER_LIST;
@@ -54,20 +54,19 @@ public class EmployerController {
     public String updateEmployer(Model model, @PathVariable String id) {
         Employer employer = employerRepository.getEmployerById(id);
         EmployerRequest employerRequest = new EmployerRequest(employer.getName(), employer.getWebsite(),
-                employer.getEmail(), employerRepository.logoFromLogoPath(employer.getLogo_path()));
+                employer.getEmail(), null);
+        model.addAttribute("logo_path", employer.getLogo_path());
         model.addAttribute("employerRequest", employerRequest);
         return "employer_update";
     }
 
-    // TODO: khi submit ảnh và web redirect về trang employer/list, ảnh không hiện
-    // ngay mà phải reload lại trang
     @PostMapping("/update/{id}")
     public String submitUpdateEmployer(@PathVariable String id, @ModelAttribute EmployerRequest employerRequest) {
         Employer currentEmployer = employerRepository.getEmployerById(id);
         String logo_path;
         if (!employerRequest.logo().isEmpty()) {
-            storageService.uploadFile(employerRequest.logo());
-            logo_path = employerRepository.logoPathFromLogo(employerRequest.logo());
+            fileService.uploadEmployerLogo(id, employerRequest.logo());
+            logo_path = employerRepository.logoPathFromLogo(id, employerRequest.logo());
         } else {
             logo_path = currentEmployer.getLogo_path();
         }

@@ -1,7 +1,6 @@
 package vn.techmaster.jobhunt.repository;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import vn.techmaster.jobhunt.model.Employer;
 
 @Repository
 public class EmployerRepository {
-    String logoPath = "img/employer_logo/"; // TODO: refactor this path
+    String logoPath = "upload/employer_logo";
 
     @Autowired
     private JobRepository jobRepository;
@@ -22,16 +21,16 @@ public class EmployerRepository {
     public EmployerRepository() {
         employers = new ConcurrentHashMap<>();
         employers.put("e1",
-                new Employer("e1", "FPT", "img/employer_logo/FPT-transparent.png", "https://fpt.com.vn/",
+                new Employer("e1", "FPT", "upload/employer_logo/e1/FPT-transparent.png", "https://fpt.com.vn/",
                         "fpt@mail.com"));
         employers.put("e2",
-                new Employer("e2", "CMC", "img/employer_logo/cmc.svg", "https://cmc.com.vn/",
+                new Employer("e2", "CMC", "upload/employer_logo/e2/cmc.png", "https://cmc.com.vn/",
                         "cmc@mail.com"));
         employers.put("e3",
-                new Employer("e3", "Amazon", "img/employer_logo/amazon.png", "https://amazon.com/",
+                new Employer("e3", "Amazon", "upload/employer_logo/e3/amazon.png", "https://amazon.com/",
                         "amazon@mail.com"));
         employers.put("e4",
-                new Employer("e4", "Google", "img/employer_logo/google.png", "https://google.com/",
+                new Employer("e4", "Google", "upload/employer_logo/e4/google.png", "https://google.com/",
                         "google@mail.com"));
     }
 
@@ -58,12 +57,7 @@ public class EmployerRepository {
         jobRepository.deleteJobsByEmployerId(id);
     }
 
-    public String logoPathFromLogo(MultipartFile logo) {
-        return logoPath + logo.getOriginalFilename();
-    }
-
-    public MultipartFile logoFromLogoPath(String logo_path) {
-        // TODO: display current logo
-        return null;
+    public String logoPathFromLogo(String id, MultipartFile logo) {
+        return logoPath + "/" + id + "/" + logo.getOriginalFilename();
     }
 }
