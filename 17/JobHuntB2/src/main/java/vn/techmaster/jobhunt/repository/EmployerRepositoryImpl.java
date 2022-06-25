@@ -27,10 +27,6 @@ public class EmployerRepositoryImpl {
 
     ConcurrentHashMap<String, Employer> employers;
 
-    public Employer getEmployerById(String id) {
-        return employers.get(id);
-    }
-
     public void createEmployer(Employer employer) {
         employers.put(employer.getId(), employer);
     }

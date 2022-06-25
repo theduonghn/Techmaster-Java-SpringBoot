@@ -17,27 +17,6 @@ public class JobRepositoryImpl {
 
     ConcurrentHashMap<String, Job> jobs;
 
-    public JobRepositoryImpl() {
-        jobs = new ConcurrentHashMap<>();
-        jobs.put("j1", new Job("j1", "e1", "Java developer", "Lập trình viên Java", City.HaNoi, LocalDateTime.now(),
-                LocalDateTime.now()));
-        jobs.put("j2",
-                new Job("j2", "e2", "Python developer", "Lập trình viên Python", City.DaNang, LocalDateTime.now(),
-                        LocalDateTime.now()));
-        jobs.put("j3",
-                new Job("j3", "e3", "JavaScript developer", "Lập trình viên JavaScript", City.HaiPhong,
-                        LocalDateTime.now(),
-                        LocalDateTime.now()));
-        jobs.put("j4",
-                new Job("j4", "e4", "Fullstack developer", "Lập trình viên fullstack", City.HoChiMinh,
-                        LocalDateTime.now(),
-                        LocalDateTime.now()));
-    }
-
-    public Collection<Job> getJobs() {
-        return jobs.values();
-    }
-
     public Job getJobById(String id) {
         return jobs.get(id);
     }

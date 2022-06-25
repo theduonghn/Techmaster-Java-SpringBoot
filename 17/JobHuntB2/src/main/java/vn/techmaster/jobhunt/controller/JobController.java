@@ -18,12 +18,15 @@ import vn.techmaster.jobhunt.repository.EmployerRepositoryImpl;
 import vn.techmaster.jobhunt.repository.JobRepositoryImpl;
 import vn.techmaster.jobhunt.request.JobRequest;
 import vn.techmaster.jobhunt.service.EmployerService;
+import vn.techmaster.jobhunt.service.JobService;
 
 @Controller
 @RequestMapping("/job")
 public class JobController {
     @Autowired
     private JobRepositoryImpl jobRepository;
+    @Autowired
+    private JobService jobService;
     @Autowired
     private EmployerRepositoryImpl employerRepository;
     @Autowired
@@ -33,15 +36,15 @@ public class JobController {
 
     @GetMapping("/list")
     public String jobList(Model model) {
-        model.addAttribute("jobs", jobRepository.getJobs());
-        model.addAttribute("employerRepository", employerRepository);
+        model.addAttribute("jobs", jobService.findAll());
+        model.addAttribute("employerService", employerService);
         return "job_list";
     }
 
     @GetMapping("/detail/{id}")
     public String jobDetail(Model model, @PathVariable String id) {
         Job job = jobRepository.getJobById(id);
-        Employer employer = employerRepository.getEmployerById(job.getEmp_id());
+        Employer employer = employerService.findById(job.getEmp_id());
         model.addAttribute("job", job);
         model.addAttribute("employer", employer);
         return "job_detail";

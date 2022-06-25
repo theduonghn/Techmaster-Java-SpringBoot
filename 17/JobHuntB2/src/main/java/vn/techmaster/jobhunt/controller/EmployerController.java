@@ -55,7 +55,7 @@ public class EmployerController {
 
     @GetMapping("/update/{id}")
     public String updateEmployer(Model model, @PathVariable String id) {
-        Employer employer = employerRepo.getEmployerById(id);
+        Employer employer = employerService.findById(id);
         EmployerRequest employerRequest = new EmployerRequest(employer.getName(), employer.getWebsite(),
                 employer.getEmail(), null);
         model.addAttribute("logo_path", employer.getLogo_path());
@@ -65,7 +65,7 @@ public class EmployerController {
 
     @PostMapping("/update/{id}")
     public String submitUpdateEmployer(@PathVariable String id, @ModelAttribute EmployerRequest employerRequest) {
-        Employer currentEmployer = employerRepo.getEmployerById(id);
+        Employer currentEmployer = employerService.findById(id);
         String logo_path;
         if (!employerRequest.logo().isEmpty()) {
             fileService.uploadEmployerLogo(id, employerRequest.logo());

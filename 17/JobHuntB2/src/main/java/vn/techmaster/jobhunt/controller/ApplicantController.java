@@ -16,6 +16,7 @@ import vn.techmaster.jobhunt.repository.ApplicantRepositoryImpl;
 import vn.techmaster.jobhunt.repository.EmployerRepositoryImpl;
 import vn.techmaster.jobhunt.repository.JobRepositoryImpl;
 import vn.techmaster.jobhunt.request.ApplicantRequest;
+import vn.techmaster.jobhunt.service.JobService;
 
 @Controller
 @RequestMapping("/applicant")
@@ -24,6 +25,8 @@ public class ApplicantController {
     private ApplicantRepositoryImpl applicantRepository;
     @Autowired
     private JobRepositoryImpl jobRepository;
+    @Autowired
+    private JobService jobService;
     @Autowired
     private EmployerRepositoryImpl employerRepository;
 
@@ -38,7 +41,7 @@ public class ApplicantController {
     @GetMapping("/add")
     public String addApplicant(Model model) {
         model.addAttribute("applicant", new Applicant());
-        model.addAttribute("jobs", jobRepository.getJobs());
+        model.addAttribute("jobs", jobService.findAll());
         model.addAttribute("employerRepository", employerRepository);
         return "applicant_add";
     }
@@ -57,7 +60,7 @@ public class ApplicantController {
     public String updateApplicant(Model model, @PathVariable String id) {
         Applicant applicant = applicantRepository.getApplicantById(id);
         model.addAttribute("applicant", applicant);
-        model.addAttribute("jobs", jobRepository.getJobs());
+        model.addAttribute("jobs", jobService.findAll());
         model.addAttribute("employerRepository", employerRepository);
         return "applicant_update";
     }
