@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import vn.techmaster.jobhunt.exception.BadRequestException;
 import vn.techmaster.jobhunt.model.Job;
 import vn.techmaster.jobhunt.repository.JobRepository;
 
@@ -21,7 +21,7 @@ public class JobService {
     public Job findById(String id) {
         Optional<Job> oJob = jobRepository.findById(id);
         if (oJob.isEmpty()) {
-            throw new RuntimeException("Job with id = " + id + " is not exist");
+            throw new BadRequestException("Job with id = " + id + " is not exist");
         }
 
         return oJob.get();

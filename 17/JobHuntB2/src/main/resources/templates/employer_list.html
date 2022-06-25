@@ -28,7 +28,12 @@
         <tbody>
           <tr th:each="employer, iStat:${employers}">
             <td th:text="${iStat.index} +1"></td>
-            <td th:text="${employer.name}"></td>
+            <td>
+              <a
+                th:href="@{|/employer/detail/${employer.id}|}"
+                th:text="${employer.name}"
+              ></a>
+            </td>
             <td>
               <img
                 th:src="|/${employer.logo_path}|"

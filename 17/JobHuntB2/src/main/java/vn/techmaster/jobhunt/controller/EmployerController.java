@@ -35,6 +35,13 @@ public class EmployerController {
         return "employer_list";
     }
 
+    @GetMapping("/detail/{id}")
+    public String employerDetail(Model model, @PathVariable String id) {
+        Employer employer = employerService.findById(id);
+        model.addAttribute("employer", employer);
+        return "employer_detail";
+    }
+
     @GetMapping("/add")
     public String addEmployer(Model model) {
         model.addAttribute("employerRequest", new EmployerRequest(null, null, null, null)); // TODO: better way to do
