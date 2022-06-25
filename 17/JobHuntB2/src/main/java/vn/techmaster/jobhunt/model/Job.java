@@ -1,11 +1,15 @@
 package vn.techmaster.jobhunt.model;
 
 import java.time.LocalDateTime;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -27,7 +31,8 @@ public class Job {
   @GeneratedValue(generator = "uuid")
   @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
   private String id;
-  private String emp_id;
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  private Employer employer;
   private String title;
   private String description;
   @Enumerated(EnumType.STRING)
@@ -37,9 +42,9 @@ public class Job {
   @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
   private LocalDateTime created_at;
 
-  public Job(String emp_id, String title, String description, City city, LocalDateTime updated_at,
+  public Job(Employer employer, String title, String description, City city, LocalDateTime updated_at,
       LocalDateTime created_at) {
-    this.emp_id = emp_id;
+    this.employer = employer;
     this.title = title;
     this.description = description;
     this.city = city;

@@ -32,9 +32,7 @@
           <tr th:each="applicant, iStat:${applicants}">
             <td th:text="${iStat.index} +1"></td>
             <td th:text="${applicant.job.title}"></td>
-            <td
-              th:text="${employerService.findById(applicant.job.emp_id).name}"
-            ></td>
+            <td th:text="${applicant.job.employer.name}"></td>
             <td th:text="${applicant.name}"></td>
             <td th:text="${applicant.email}"></td>
             <td th:text="${applicant.phone}"></td>

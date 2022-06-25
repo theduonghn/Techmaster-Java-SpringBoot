@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.techmaster.jobhunt.model.Applicant;
+import vn.techmaster.jobhunt.model.Job;
 import vn.techmaster.jobhunt.model.Skill;
 import vn.techmaster.jobhunt.repository.ApplicantRepository;
 
@@ -18,7 +19,16 @@ public class ApplicantService {
         return applicantRepository.findAll();
     }
 
+    public List<Applicant> findByJob(Job job) {
+        return applicantRepository.findByJob(job);
+    }
+
     public String showSkills(Applicant applicant) {
         return String.join(", ", applicant.getSkills().stream().map(Skill::getName).toList());
+    }
+
+    // Delete by instance
+    public void delete(Applicant applicant) {
+        applicantRepository.delete(applicant);
     }
 }

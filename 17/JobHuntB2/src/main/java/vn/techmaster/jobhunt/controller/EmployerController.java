@@ -81,7 +81,7 @@ public class EmployerController {
 
     @GetMapping("/delete/{id}")
     public String deleteEmployer(@PathVariable String id) {
-        employerRepo.deleteEmployerById(id);
+        employerService.delete(id);
         return REDIRECT_EMPLOYER_LIST;
     }
 }

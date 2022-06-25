@@ -41,7 +41,7 @@ public class JobController {
     @GetMapping("/detail/{id}")
     public String jobDetail(Model model, @PathVariable String id) {
         Job job = jobRepository.getJobById(id);
-        Employer employer = employerService.findById(job.getEmp_id());
+        Employer employer = job.getEmployer();
         model.addAttribute("job", job);
         model.addAttribute("employer", employer);
         return "job_detail";
@@ -57,7 +57,7 @@ public class JobController {
     @PostMapping("/add")
     public String submitAddJob(@ModelAttribute JobRequest jobRequest) {
         String id = UUID.randomUUID().toString();
-        Job job = new Job(id, jobRequest.emp_id(), jobRequest.title(), jobRequest.description(), jobRequest.city(),
+        Job job = new Job(id, jobRequest.employer(), jobRequest.title(), jobRequest.description(), jobRequest.city(),
                 LocalDateTime.now(), LocalDateTime.now());
         jobRepository.createJob(job);
         return REDIRECT_JOB_LIST;
@@ -75,7 +75,7 @@ public class JobController {
     public String submitUpdateJob(@PathVariable String id, @ModelAttribute JobRequest jobRequest) {
         Job currentJob = jobRepository.getJobById(id);
         LocalDateTime created_at = currentJob.getCreated_at();
-        Job job = new Job(id, jobRequest.emp_id(), jobRequest.title(), jobRequest.description(), jobRequest.city(),
+        Job job = new Job(id, jobRequest.employer(), jobRequest.title(), jobRequest.description(), jobRequest.city(),
                 LocalDateTime.now(), created_at);
         jobRepository.updateJob(job);
         return REDIRECT_JOB_LIST;

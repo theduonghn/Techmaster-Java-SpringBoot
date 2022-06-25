@@ -58,21 +58,21 @@ public class JobhuntApplication implements ApplicationRunner {
 		entityManager.persist(e4);
 
 		// Create jobs
-		Job j1 = new Job(e1.getId(), "Java developer", "Lập trình viên Java", City.HaNoi, LocalDateTime.now(),
+		Job j1 = new Job(e1, "Java developer", "Lập trình viên Java", City.HaNoi, LocalDateTime.now(),
 				LocalDateTime.now());
 		entityManager.persist(j1);
 
-		Job j2 = new Job(e2.getId(), "Python developer", "Lập trình viên Python", City.DaNang,
+		Job j2 = new Job(e2, "Python developer", "Lập trình viên Python", City.DaNang,
 				LocalDateTime.now(),
 				LocalDateTime.now());
 		entityManager.persist(j2);
 
-		Job j3 = new Job(e3.getId(), "JavaScript developer", "Lập trình viên JavaScript", City.HaiPhong,
+		Job j3 = new Job(e3, "JavaScript developer", "Lập trình viên JavaScript", City.HaiPhong,
 				LocalDateTime.now(),
 				LocalDateTime.now());
 		entityManager.persist(j3);
 
-		Job j4 = new Job(e4.getId(), "Fullstack developer", "Lập trình viên fullstack", City.HoChiMinh,
+		Job j4 = new Job(e4, "Fullstack developer", "Lập trình viên fullstack", City.HoChiMinh,
 				LocalDateTime.now(),
 				LocalDateTime.now());
 		entityManager.persist(j4);

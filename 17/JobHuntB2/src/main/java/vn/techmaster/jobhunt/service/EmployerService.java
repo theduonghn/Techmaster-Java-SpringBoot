@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import vn.techmaster.jobhunt.exception.BadRequestException;
 import vn.techmaster.jobhunt.model.Employer;
+import vn.techmaster.jobhunt.model.Job;
 import vn.techmaster.jobhunt.repository.EmployerRepository;
 import vn.techmaster.jobhunt.request.EmployerRequest;
 
@@ -18,6 +19,8 @@ public class EmployerService {
 
     @Autowired
     private EmployerRepository employerRepository;
+    @Autowired
+    private JobService jobService;
     @Autowired
     private FileService fileService;
 
@@ -53,6 +56,18 @@ public class EmployerService {
         employer.setLogo_path(logo_path);
         employerRepository.save(employer);
         return employer;
+    }
+
+    public void delete(String id) {
+        Employer employer = this.findById(id);
+
+        // Delete jobs of this employer
+        List<Job> jobs = jobService.findByEmployer(employer);
+        jobs.forEach(job -> jobService.delete(job));
+
+        // Delete employer
+        employerRepository.delete(employer);
+
     }
 
     public String logoPathFromLogo(String id, MultipartFile logo) {

@@ -30,9 +30,7 @@
         <tbody>
           <tr th:each="job, iStat:${jobs}">
             <td th:text="${iStat.index} +1"></td>
-            <td
-              th:text="${employerService.findById(job.emp_id).getName()}"
-            ></td>
+            <td th:text="${job.employer.name}"></td>
             <td>
               <a th:href="@{${'detail/' + job.id}}" th:text="${job.title}"></a>
             </td>

@@ -36,7 +36,7 @@ public class JobRepositoryImpl {
     public void deleteJobsByEmployerId(String emp_id) {
         for (String id : jobs.keySet()) {
             Job job = getJobById(id);
-            if (job.getEmp_id().equals(emp_id)) {
+            if (job.getEmployer().getId().equals(emp_id)) {
                 deleteJobById(id);
             }
         }
