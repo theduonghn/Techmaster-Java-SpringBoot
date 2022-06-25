@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import vn.techmaster.jobhunt.model.Employer;
 import vn.techmaster.jobhunt.model.Job;
-import vn.techmaster.jobhunt.repository.EmployerRepositoryImpl;
 import vn.techmaster.jobhunt.repository.JobRepositoryImpl;
 import vn.techmaster.jobhunt.request.JobRequest;
 import vn.techmaster.jobhunt.service.EmployerService;
@@ -27,8 +26,6 @@ public class JobController {
     private JobRepositoryImpl jobRepository;
     @Autowired
     private JobService jobService;
-    @Autowired
-    private EmployerRepositoryImpl employerRepository;
     @Autowired
     private EmployerService employerService;
 

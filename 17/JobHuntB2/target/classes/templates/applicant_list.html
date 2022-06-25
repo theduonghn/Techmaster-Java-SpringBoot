@@ -31,16 +31,14 @@
         <tbody>
           <tr th:each="applicant, iStat:${applicants}">
             <td th:text="${iStat.index} +1"></td>
+            <td th:text="${applicant.job.title}"></td>
             <td
-              th:text="${jobRepository.getJobById(applicant.job_id).title}"
-            ></td>
-            <td
-              th:text="${employerRepository.getEmployerById(jobRepository.getJobById(applicant.job_id).emp_id).name}"
+              th:text="${employerService.findById(applicant.job.emp_id).name}"
             ></td>
             <td th:text="${applicant.name}"></td>
             <td th:text="${applicant.email}"></td>
             <td th:text="${applicant.phone}"></td>
-            <td th:text="${applicant.skills}"></td>
+            <td th:text="${applicantService.showSkills(applicant)}"></td>
             <td th:text="${applicant.applyContent}"></td>
             <td>
               <form th:action="@{${'update/' + applicant.id}}" method="GET">

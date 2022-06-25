@@ -1,14 +1,9 @@
 package vn.techmaster.jobhunt.repository;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 

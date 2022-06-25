@@ -1,13 +1,10 @@
 package vn.techmaster.jobhunt.repository;
 
-import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import vn.techmaster.jobhunt.model.City;
 import vn.techmaster.jobhunt.model.Job;
 
 @Repository
