@@ -27,4 +27,8 @@ public class EmployerService {
 
         return oEmployer.get();
     }
+
+    public Employer add(Employer employer) {
+        return employerRepository.saveAndFlush(employer);
+    }
 }

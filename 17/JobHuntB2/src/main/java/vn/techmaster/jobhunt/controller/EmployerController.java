@@ -52,11 +52,15 @@ public class EmployerController {
     @PostMapping("/add")
     public String submitAddEmployer(@ModelAttribute EmployerRequest employerRequest) {
         String id = UUID.randomUUID().toString();
-        fileService.uploadEmployerLogo(id, employerRequest.logo());
-        Employer employer = new Employer(id, employerRequest.name(),
-                employerRepo.logoPathFromLogo(id, employerRequest.logo()),
-                employerRequest.website(), employerRequest.email());
-        employerRepo.createEmployer(employer);
+        Employer employer = Employer.builder()
+                .id(id)
+                .name(employerRequest.name())
+                .website(employerRequest.website())
+                .email(employerRequest.email())
+                .build();
+        fileService.uploadEmployerLogo(employer.getId(), employerRequest.logo());
+        employer.setLogo_path(employerRepo.logoPathFromLogo(employer.getId(), employerRequest.logo()));
+        employerService.add(employer);
         return REDIRECT_EMPLOYER_LIST;
     }
 
