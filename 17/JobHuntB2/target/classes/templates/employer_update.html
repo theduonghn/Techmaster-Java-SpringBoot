@@ -24,7 +24,7 @@
           <label for="name" class="form-label">Name</label>
           <input type="text" class="form-control" th:field="*{name}" />
           <label for="logo" class="form-label">Logo</label>
-          <img th:src="|/${logo_path}|" alt="" />
+          <img th:src="|/${logo_path}|" alt="" class="logo-small" />
           <input type="file" class="form-control" th:field="*{logo}" />
           <label for="website" class="form-label">Website</label>
           <input type="url" class="form-control" th:field="*{website}" />

@@ -44,8 +44,7 @@ public class EmployerController {
 
     @GetMapping("/add")
     public String addEmployer(Model model) {
-        model.addAttribute("employerRequest", new EmployerRequest(null, null, null, null)); // TODO: better way to do
-                                                                                            // this?
+        model.addAttribute("employerRequest", new EmployerRequest());
         return "employer_add";
     }
 
@@ -54,12 +53,12 @@ public class EmployerController {
         String id = UUID.randomUUID().toString();
         Employer employer = Employer.builder()
                 .id(id)
-                .name(employerRequest.name())
-                .website(employerRequest.website())
-                .email(employerRequest.email())
+                .name(employerRequest.getName())
+                .website(employerRequest.getWebsite())
+                .email(employerRequest.getEmail())
                 .build();
-        fileService.uploadEmployerLogo(employer.getId(), employerRequest.logo());
-        employer.setLogo_path(employerRepo.logoPathFromLogo(employer.getId(), employerRequest.logo()));
+        fileService.uploadEmployerLogo(employer.getId(), employerRequest.getLogo());
+        employer.setLogo_path(employerService.logoPathFromLogo(employer.getId(), employerRequest.getLogo()));
         employerService.add(employer);
         return REDIRECT_EMPLOYER_LIST;
     }
@@ -76,17 +75,7 @@ public class EmployerController {
 
     @PostMapping("/update/{id}")
     public String submitUpdateEmployer(@PathVariable String id, @ModelAttribute EmployerRequest employerRequest) {
-        Employer currentEmployer = employerService.findById(id);
-        String logo_path;
-        if (!employerRequest.logo().isEmpty()) {
-            fileService.uploadEmployerLogo(id, employerRequest.logo());
-            logo_path = employerRepo.logoPathFromLogo(id, employerRequest.logo());
-        } else {
-            logo_path = currentEmployer.getLogo_path();
-        }
-        Employer employer = new Employer(id, employerRequest.name(),
-                logo_path, employerRequest.website(), employerRequest.email());
-        employerRepo.updateEmployer(employer);
+        employerService.update(id, employerRequest);
         return REDIRECT_EMPLOYER_LIST;
     }
 
