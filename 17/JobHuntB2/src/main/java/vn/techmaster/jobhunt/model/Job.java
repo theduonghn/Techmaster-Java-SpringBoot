@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
@@ -37,8 +39,10 @@ public class Job {
   private String description;
   @Enumerated(EnumType.STRING)
   private City city;
+  @LastModifiedDate
   @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
   private LocalDateTime updated_at;
+  @CreatedDate
   @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
   private LocalDateTime created_at;
 

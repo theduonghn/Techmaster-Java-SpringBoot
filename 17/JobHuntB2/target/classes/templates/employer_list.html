@@ -27,7 +27,7 @@
         </thead>
         <tbody>
           <tr th:each="employer, iStat:${employers}">
-            <td th:text="${iStat.index} +1"></td>
+            <th scope="row" th:text="${iStat.index} +1"></th>
             <td>
               <a
                 th:href="@{|/employer/detail/${employer.id}|}"

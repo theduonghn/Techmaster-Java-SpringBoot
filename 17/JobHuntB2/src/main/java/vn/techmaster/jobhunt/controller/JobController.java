@@ -40,7 +40,7 @@ public class JobController {
 
     @GetMapping("/detail/{id}")
     public String jobDetail(Model model, @PathVariable String id) {
-        Job job = jobRepository.getJobById(id);
+        Job job = jobService.findById(id);
         Employer employer = job.getEmployer();
         model.addAttribute("job", job);
         model.addAttribute("employer", employer);

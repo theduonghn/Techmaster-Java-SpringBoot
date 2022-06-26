@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import vn.techmaster.jobhunt.model.Employer;
-import vn.techmaster.jobhunt.repository.EmployerRepositoryImpl;
 import vn.techmaster.jobhunt.request.EmployerRequest;
 import vn.techmaster.jobhunt.service.EmployerService;
 import vn.techmaster.jobhunt.service.FileService;
@@ -22,8 +21,6 @@ import vn.techmaster.jobhunt.service.FileService;
 public class EmployerController {
     @Autowired
     private FileService fileService;
-    @Autowired
-    private EmployerRepositoryImpl employerRepo;
     @Autowired
     private EmployerService employerService;
 
