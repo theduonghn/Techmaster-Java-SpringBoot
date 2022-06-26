@@ -14,10 +14,10 @@
     <div class="container">
       <h1>Thêm việc làm</h1>
 
-      <form class="col-3" action="" th:object="${job}" method="POST">
+      <form class="col-3" action="" th:object="${jobRequest}" method="POST">
         <div class="mb-3">
-          <label for="emp_id" class="form-label">Nhà tuyển dụng</label>
-          <select class="form-select" th:field="*{emp_id}">
+          <label for="employerId" class="form-label">Nhà tuyển dụng</label>
+          <select class="form-select" th:field="*{employerId}">
             <option
               th:each="employer : ${employers}"
               th:value="${employer.id}"

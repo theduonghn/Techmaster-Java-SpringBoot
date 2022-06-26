@@ -1,8 +1,6 @@
 package vn.techmaster.jobhunt.controller;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,35 +47,38 @@ public class JobController {
 
     @GetMapping("/add")
     public String addJob(Model model) {
-        model.addAttribute("job", new Job());
+        model.addAttribute("jobRequest", new JobRequest());
         model.addAttribute("employers", employerService.findAll());
         return "job_add";
     }
 
     @PostMapping("/add")
     public String submitAddJob(@ModelAttribute JobRequest jobRequest) {
-        String id = UUID.randomUUID().toString();
-        Job job = new Job(id, jobRequest.employer(), jobRequest.title(), jobRequest.description(), jobRequest.city(),
+        Employer employer = employerService.findById(jobRequest.getEmployerId());
+        Job job = new Job(employer, jobRequest.getTitle(), jobRequest.getDescription(), jobRequest.getCity(),
                 LocalDateTime.now(), LocalDateTime.now());
-        jobRepository.createJob(job);
+        jobService.add(job);
         return REDIRECT_JOB_LIST;
     }
 
     @GetMapping("/update/{id}")
     public String updateJob(Model model, @PathVariable String id) {
-        Job job = jobRepository.getJobById(id);
-        model.addAttribute("job", job);
+        Job job = jobService.findById(id);
+        JobRequest jobRequest = new JobRequest(
+                job.getId(),
+                job.getEmployer().getId(),
+                job.getTitle(),
+                job.getDescription(),
+                job.getCity());
+        model.addAttribute("jobRequest", jobRequest);
         model.addAttribute("employers", employerService.findAll());
         return "job_update";
     }
 
     @PostMapping("/update/{id}")
     public String submitUpdateJob(@PathVariable String id, @ModelAttribute JobRequest jobRequest) {
-        Job currentJob = jobRepository.getJobById(id);
-        LocalDateTime created_at = currentJob.getCreated_at();
-        Job job = new Job(id, jobRequest.employer(), jobRequest.title(), jobRequest.description(), jobRequest.city(),
-                LocalDateTime.now(), created_at);
-        jobRepository.updateJob(job);
+        Employer employer = employerService.findById(jobRequest.getEmployerId());
+        jobService.update(id, jobRequest, employer);
         return REDIRECT_JOB_LIST;
     }
 
