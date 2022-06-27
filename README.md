@@ -2,4 +2,4 @@
 
 ### JobHunt
 
-https://github.com/theduonghn/Techmaster-Java-SpringBoot/tree/main/05/JobHuntB2
+https://github.com/theduonghn/Techmaster-Java-SpringBoot/tree/main/17/JobHuntB2
