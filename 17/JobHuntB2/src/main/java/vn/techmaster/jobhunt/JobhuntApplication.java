@@ -41,19 +41,19 @@ public class JobhuntApplication implements ApplicationRunner {
 		entityManager.persist(skillSql);
 
 		// Create employers
-		Employer e1 = new Employer("FPT", "upload/employer_logo/e1/FPT-transparent.png", "https://fpt.com.vn/",
+		Employer e1 = new Employer("FPT", "upload/employer_logo/e1", "https://fpt.com.vn/",
 				"fpt@mail.com");
 		entityManager.persist(e1);
 
-		Employer e2 = new Employer("CMC", "upload/employer_logo/e2/cmc.png", "https://cmc.com.vn/",
+		Employer e2 = new Employer("CMC", "upload/employer_logo/e2", "https://cmc.com.vn/",
 				"cmc@mail.com");
 		entityManager.persist(e2);
 
-		Employer e3 = new Employer("Amazon", "upload/employer_logo/e3/amazon.png", "https://amazon.com/",
+		Employer e3 = new Employer("Amazon", "upload/employer_logo/e3", "https://amazon.com/",
 				"amazon@mail.com");
 		entityManager.persist(e3);
 
-		Employer e4 = new Employer("Google", "upload/employer_logo/e4/google.png", "https://google.com/",
+		Employer e4 = new Employer("Google", "upload/employer_logo/e4", "https://google.com/",
 				"google@mail.com");
 		entityManager.persist(e4);
 

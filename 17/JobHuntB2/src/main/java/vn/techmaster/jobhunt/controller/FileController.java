@@ -15,8 +15,8 @@ import vn.techmaster.jobhunt.service.FileService;
 public class FileController {
     private FileService fileService;
 
-    @GetMapping(value = "upload/employer_logo/{id}/{fileId}", produces = MediaType.IMAGE_JPEG_VALUE)
-    public byte[] readEmployerLogo(@PathVariable String id, @PathVariable String fileId) {
-        return fileService.readEmployerLogo(id, fileId);
+    @GetMapping(value = "upload/employer_logo/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] readEmployerLogo(@PathVariable String id) {
+        return fileService.readEmployerLogo(id);
     }
 }

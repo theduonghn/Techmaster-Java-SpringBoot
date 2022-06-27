@@ -55,7 +55,7 @@ public class EmployerController {
                 .email(employerRequest.getEmail())
                 .build();
         fileService.uploadEmployerLogo(employer.getId(), employerRequest.getLogo());
-        employer.setLogo_path(employerService.logoPathFromLogo(employer.getId(), employerRequest.getLogo()));
+        employer.setLogo_path(employerService.logoPathFromLogo(employer.getId()));
         employerService.add(employer);
         return REDIRECT_EMPLOYER_LIST;
     }

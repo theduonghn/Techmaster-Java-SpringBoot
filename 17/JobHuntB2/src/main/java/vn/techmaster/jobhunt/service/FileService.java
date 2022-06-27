@@ -14,12 +14,14 @@ import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import vn.techmaster.jobhunt.exception.BadRequestException;
+import vn.techmaster.jobhunt.exception.StorageException;
 import vn.techmaster.jobhunt.util.Utils;
 
 @Service
 public class FileService {
     // Folder path to upload file
     private final Path rootPath = Paths.get("upload");
+    private final Path employerLogoPath = rootPath.resolve("employer_logo");
 
     public FileService() {
         createFolder(rootPath.toString());
@@ -35,26 +37,23 @@ public class FileService {
 
     // Upload file
     public String uploadEmployerLogo(String id, MultipartFile file) {
-        // Create folder for employer id
-        Path employerDir = Paths.get("upload")
-                .resolve("employer_logo")
-                .resolve(id);
-        createFolder(employerDir.toString());
+        // Create employer logo path if not exist
+        createFolder(employerLogoPath.toString());
 
         // Validate file
         validate(file);
 
         // Create path of file
-        File fileServer = new File(employerDir + "/" + file.getOriginalFilename());
+        File fileServer = new File(employerLogoPath + "/" + id);
         try {
             // Sử dụng Buffer để lưu dữ liệu
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(fileServer));
             stream.write(file.getBytes());
             stream.close();
 
-            return file.getOriginalFilename();
+            return id;
         } catch (Exception e) {
-            throw new RuntimeException("Lỗi khi upload file");
+            throw new StorageException("Lỗi khi upload file");
         }
     }
 
@@ -78,18 +77,17 @@ public class FileService {
     }
 
     // Read file
-    public byte[] readEmployerLogo(String id, String fileId) {
-        // Lấy đường dẫn file tương ứng với user_id
-        Path employerPath = rootPath.resolve("employer_logo").resolve(id);
+    public byte[] readEmployerLogo(String id) {
+        // Lấy đường dẫn file tương ứng với id
+        Path path = employerLogoPath.resolve(id);
 
-        // Kiểm tra userPath có tồn tại hay không
-        if (!Files.exists(employerPath)) {
-            throw new RuntimeException("Lỗi khi đọc file " + fileId);
+        // Kiểm tra path có tồn tại hay không
+        if (!Files.exists(path)) {
+            throw new StorageException("Lỗi khi đọc file " + id);
         }
 
         try {
-            Path file = employerPath.resolve(fileId);
-            Resource resource = new UrlResource(file.toUri());
+            Resource resource = new UrlResource(path.toUri());
 
             if (resource.exists() || resource.isReadable()) {
                 InputStream inputStream = resource.getInputStream();
@@ -97,10 +95,10 @@ public class FileService {
                 inputStream.close(); // Remember to close InputStream
                 return byteArray;
             } else {
-                throw new RuntimeException("Lỗi khi đọc file " + fileId);
+                throw new StorageException("Lỗi khi đọc file " + id);
             }
         } catch (Exception e) {
-            throw new RuntimeException("Lỗi khi đọc file " + fileId);
+            throw new StorageException("Lỗi khi đọc file " + id);
         }
     }
 }

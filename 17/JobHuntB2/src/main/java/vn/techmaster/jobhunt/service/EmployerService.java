@@ -15,7 +15,7 @@ import vn.techmaster.jobhunt.request.EmployerRequest;
 
 @Service
 public class EmployerService {
-    private String logoPath = "upload/employer_logo";
+    private String employerLogoPath = "upload/employer_logo";
 
     @Autowired
     private EmployerRepository employerRepository;
@@ -46,7 +46,7 @@ public class EmployerService {
         String logo_path;
         if (!employerRequest.getLogo().isEmpty()) {
             fileService.uploadEmployerLogo(id, employerRequest.getLogo());
-            logo_path = this.logoPathFromLogo(id, employerRequest.getLogo());
+            logo_path = this.logoPathFromLogo(id);
         } else {
             logo_path = employer.getLogo_path();
         }
@@ -70,7 +70,7 @@ public class EmployerService {
 
     }
 
-    public String logoPathFromLogo(String id, MultipartFile logo) {
-        return logoPath + "/" + id + "/" + logo.getOriginalFilename();
+    public String logoPathFromLogo(String id) {
+        return employerLogoPath + "/" + id;
     }
 }
