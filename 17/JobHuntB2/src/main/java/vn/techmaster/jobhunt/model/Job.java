@@ -33,7 +33,7 @@ public class Job {
   @GeneratedValue(generator = "uuid")
   @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
   private String id;
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  @ManyToOne(fetch = FetchType.LAZY)
   private Employer employer;
   private String title;
   private String description;

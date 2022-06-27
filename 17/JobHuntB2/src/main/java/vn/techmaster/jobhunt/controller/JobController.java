@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import vn.techmaster.jobhunt.model.Employer;
 import vn.techmaster.jobhunt.model.Job;
-import vn.techmaster.jobhunt.repository.JobRepositoryImpl;
 import vn.techmaster.jobhunt.request.JobRequest;
 import vn.techmaster.jobhunt.service.EmployerService;
 import vn.techmaster.jobhunt.service.JobService;
@@ -20,8 +19,6 @@ import vn.techmaster.jobhunt.service.JobService;
 @Controller
 @RequestMapping("/job")
 public class JobController {
-    @Autowired
-    private JobRepositoryImpl jobRepository;
     @Autowired
     private JobService jobService;
     @Autowired
@@ -84,7 +81,7 @@ public class JobController {
 
     @GetMapping("/delete/{id}")
     public String deleteJob(@PathVariable String id) {
-        jobRepository.deleteJobById(id);
+        jobService.delete(id);
         return REDIRECT_JOB_LIST;
     }
 }
