@@ -2,14 +2,19 @@ package vn.techmaster.jobhunt.request;
 
 import java.util.List;
 
-import vn.techmaster.jobhunt.model.Job;
-import vn.techmaster.jobhunt.model.Skill;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public record ApplicantRequest(
-        Job job,
-        String name,
-        String email,
-        String phone,
-        List<Skill> skills,
-        String applyContent) {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ApplicantRequest {
+    private String id;
+    private String jobId;
+    private String name;
+    private String email;
+    private String phone;
+    private List<String> skillIds;
+    private String applyContent;
 }

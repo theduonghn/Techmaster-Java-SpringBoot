@@ -1,5 +1,7 @@
 package vn.techmaster.jobhunt.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import vn.techmaster.jobhunt.model.Applicant;
+import vn.techmaster.jobhunt.model.Job;
+import vn.techmaster.jobhunt.model.Skill;
 import vn.techmaster.jobhunt.repository.ApplicantRepositoryImpl;
 import vn.techmaster.jobhunt.request.ApplicantRequest;
 import vn.techmaster.jobhunt.service.ApplicantService;
 import vn.techmaster.jobhunt.service.EmployerService;
 import vn.techmaster.jobhunt.service.JobService;
+import vn.techmaster.jobhunt.service.SkillService;
 
 @Controller
 @RequestMapping("/applicant")
@@ -29,6 +34,8 @@ public class ApplicantController {
     private JobService jobService;
     @Autowired
     private EmployerService employerService;
+    @Autowired
+    private SkillService skillService;
 
     @GetMapping("/list")
     public String jobList(Model model) {
@@ -48,19 +55,22 @@ public class ApplicantController {
 
     @GetMapping("/add")
     public String addApplicant(Model model) {
-        model.addAttribute("applicant", new Applicant());
+        model.addAttribute("applicantRequest", new ApplicantRequest());
         model.addAttribute("jobs", jobService.findAll());
+        model.addAttribute("skills", skillService.findAll());
         model.addAttribute("employerService", employerService);
         return "applicant_add";
     }
 
     @PostMapping("/add")
     public String submitAddApplicant(@ModelAttribute ApplicantRequest applicantRequest) {
-        String id = UUID.randomUUID().toString();
-        Applicant applicant = new Applicant(id, applicantRequest.job(), applicantRequest.name(),
-                applicantRequest.email(), applicantRequest.phone(), applicantRequest.skills(),
-                applicantRequest.applyContent());
-        applicantRepository.createApplicant(applicant);
+        Job job = jobService.findById(applicantRequest.getJobId());
+        List<Skill> skills = applicantRequest.getSkillIds().stream()
+                .map(id -> skillService.findById(id)).toList();
+        Applicant applicant = new Applicant(job, applicantRequest.getName(),
+                applicantRequest.getEmail(), applicantRequest.getPhone(), skills,
+                applicantRequest.getApplyContent());
+        applicantService.add(applicant);
         return "applicant_add_success";
     }
 
@@ -75,9 +85,12 @@ public class ApplicantController {
 
     @PostMapping("/update/{id}")
     public String submitUpdateApplicant(@PathVariable String id, @ModelAttribute ApplicantRequest applicantRequest) {
-        Applicant applicant = new Applicant(id, applicantRequest.job(), applicantRequest.name(),
-                applicantRequest.email(), applicantRequest.phone(), applicantRequest.skills(),
-                applicantRequest.applyContent());
+        Job job = jobService.findById(applicantRequest.getJobId());
+        List<Skill> skills = applicantRequest.getSkillIds().stream()
+                .map(skillId -> skillService.findById(skillId)).toList();
+        Applicant applicant = new Applicant(id, job, applicantRequest.getName(),
+                applicantRequest.getEmail(), applicantRequest.getPhone(), skills,
+                applicantRequest.getApplyContent());
         applicantRepository.updateApplicant(applicant);
         return "applicant_update_success";
     }

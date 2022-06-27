@@ -38,6 +38,11 @@ public class ApplicantService {
         return String.join(", ", applicant.getSkills().stream().map(Skill::getName).toList());
     }
 
+    public Applicant add(Applicant applicant) {
+        applicantRepository.save(applicant);
+        return applicant;
+    }
+
     // Delete by instance
     public void delete(Applicant applicant) {
         applicantRepository.delete(applicant);
