@@ -1,8 +1,6 @@
 package vn.techmaster.jobhunt.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import vn.techmaster.jobhunt.model.Applicant;
 import vn.techmaster.jobhunt.model.Job;
 import vn.techmaster.jobhunt.model.Skill;
-import vn.techmaster.jobhunt.repository.ApplicantRepositoryImpl;
 import vn.techmaster.jobhunt.request.ApplicantRequest;
 import vn.techmaster.jobhunt.service.ApplicantService;
 import vn.techmaster.jobhunt.service.EmployerService;
@@ -26,8 +23,6 @@ import vn.techmaster.jobhunt.service.SkillService;
 @Controller
 @RequestMapping("/applicant")
 public class ApplicantController {
-    @Autowired
-    private ApplicantRepositoryImpl applicantRepository;
     @Autowired
     private ApplicantService applicantService;
     @Autowired
@@ -76,10 +71,12 @@ public class ApplicantController {
 
     @GetMapping("/update/{id}")
     public String updateApplicant(Model model, @PathVariable String id) {
-        Applicant applicant = applicantRepository.getApplicantById(id);
-        model.addAttribute("applicant", applicant);
+        Applicant applicant = applicantService.findById(id);
+        List<String> skillIds = applicant.getSkills().stream().map(Skill::getId).toList();
+        model.addAttribute("applicantRequest", new ApplicantRequest(id, applicant.getJob().getId(), applicant.getName(),
+                applicant.getEmail(), applicant.getPhone(), skillIds, applicant.getApplyContent()));
         model.addAttribute("jobs", jobService.findAll());
-        model.addAttribute("employerService", employerService);
+        model.addAttribute("skills", skillService.findAll());
         return "applicant_update";
     }
 
@@ -91,13 +88,13 @@ public class ApplicantController {
         Applicant applicant = new Applicant(id, job, applicantRequest.getName(),
                 applicantRequest.getEmail(), applicantRequest.getPhone(), skills,
                 applicantRequest.getApplyContent());
-        applicantRepository.updateApplicant(applicant);
+        applicantService.update(applicant);
         return "applicant_update_success";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteApplicant(@PathVariable String id) {
-        applicantRepository.deleteApplicantById(id);
+        applicantService.delete(id);
         return "redirect:/applicant/list";
     }
 }

@@ -43,8 +43,19 @@ public class ApplicantService {
         return applicant;
     }
 
+    public Applicant update(Applicant applicant) {
+        applicantRepository.save(applicant);
+        return applicant;
+    }
+
     // Delete by instance
     public void delete(Applicant applicant) {
         applicantRepository.delete(applicant);
+    }
+
+    // Delete by id
+    public void delete(String id) {
+        Applicant applicant = this.findById(id);
+        this.delete(applicant);
     }
 }

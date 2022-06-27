@@ -14,15 +14,20 @@
     <div class="container mb-3">
       <h1>Cập nhật ứng viên</h1>
 
-      <form class="col-6" action="" th:object="${applicant}" method="POST">
+      <form
+        class="col-6"
+        action=""
+        th:object="${applicantRequest}"
+        method="POST"
+      >
         <div class="mb-3">
-          <label for="job_id" class="form-label">Việc làm</label>
-          <select class="form-select" th:field="*{job_id}">
+          <label for="jobId" class="form-label">Việc làm</label>
+          <select class="form-select" th:field="*{jobId}">
             <option
               th:each="job : ${jobs}"
               th:value="${job.id}"
-              th:text="${job.title + ' - ' + employerRepository.getEmployerById(job.emp_id).name}"
-              th:selected="${job_id == job.id}"
+              th:text="${job.title + ' - ' + job.employer.name}"
+              th:selected="${jobId == job.id}"
             ></option>
           </select>
           <label for="name" class="form-label">Tên</label>
@@ -31,13 +36,14 @@
           <input type="email" class="form-control" th:field="*{email}" />
           <label for="phone" class="form-label">Điện thoại</label>
           <input type="tel" class="form-control" th:field="*{phone}" />
-          <label for="skills" class="form-label">Kỹ năng</label>
-          <div
-            th:each="skill : ${T(vn.techmaster.jobhunt.model.Skill).values()}"
-          >
-            <input type="checkbox" th:field="*{skills}" th:value="${skill}" />
-            <label th:for="${#ids.prev('skills')}" th:text="${skill.label}">
-            </label>
+          <label for="skillIds" class="form-label">Kỹ năng</label>
+          <div th:each="skill : ${skills}">
+            <input
+              type="checkbox"
+              th:field="*{skillIds}"
+              th:value="${skill.id}"
+            />
+            <label th:for="${skillIds}" th:text="${skill.name}"> </label>
           </div>
           <label for="applyContent" class="form-label"
             >Nội dung ứng tuyển</label
