@@ -28,7 +28,7 @@ public class JobService {
     public Job findById(String id) {
         Optional<Job> oJob = jobRepository.findById(id);
         if (oJob.isEmpty()) {
-            throw new BadRequestException("Job with id = " + id + " is not exist");
+            throw new BadRequestException("Job with id = " + id + " does not exist");
         }
 
         return oJob.get();

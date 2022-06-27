@@ -31,7 +31,7 @@ public class EmployerService {
     public Employer findById(String id) {
         Optional<Employer> oEmployer = employerRepository.findById(id);
         if (oEmployer.isEmpty()) {
-            throw new BadRequestException("Employer with id = " + id + " is not exist");
+            throw new BadRequestException("Employer with id = " + id + " does not exist");
         }
 
         return oEmployer.get();

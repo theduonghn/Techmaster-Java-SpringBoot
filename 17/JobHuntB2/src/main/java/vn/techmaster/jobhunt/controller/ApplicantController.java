@@ -38,6 +38,14 @@ public class ApplicantController {
         return "applicant_list";
     }
 
+    @GetMapping("/detail/{id}")
+    public String applicantDetail(Model model, @PathVariable String id) {
+        Applicant applicant = applicantService.findById(id);
+        model.addAttribute("applicant", applicant);
+        model.addAttribute("skills", applicantService.showSkills(applicant));
+        return "applicant_detail";
+    }
+
     @GetMapping("/add")
     public String addApplicant(Model model) {
         model.addAttribute("applicant", new Applicant());

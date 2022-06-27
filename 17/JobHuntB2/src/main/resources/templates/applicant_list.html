@@ -33,7 +33,12 @@
             <td th:text="${iStat.index} +1"></td>
             <td th:text="${applicant.job.title}"></td>
             <td th:text="${applicant.job.employer.name}"></td>
-            <td th:text="${applicant.name}"></td>
+            <td>
+              <a
+                th:href="@{|/applicant/detail/${applicant.id}|}"
+                th:text="${applicant.name}"
+              ></a>
+            </td>
             <td th:text="${applicant.email}"></td>
             <td th:text="${applicant.phone}"></td>
             <td th:text="${applicantService.showSkills(applicant)}"></td>
