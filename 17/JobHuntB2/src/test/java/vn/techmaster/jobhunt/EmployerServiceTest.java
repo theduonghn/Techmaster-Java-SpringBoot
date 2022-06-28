@@ -2,6 +2,8 @@ package vn.techmaster.jobhunt;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
@@ -47,5 +49,31 @@ class EmployerServiceTest {
                 "samsung@gmail.com");
         employerService.add(employer);
         assertThat(employerService.findAll()).size().isEqualTo(5);
+    }
+
+    // @Test
+    // void update() {
+    // Employer employer = new Employer(
+    // "Samsung",
+    // "upload/employer_log/samsung",
+    // "https://samsung.com",
+    // "samsung@gmail.com");
+    // employerService.add(employer);
+    // EmployerRequest employerRequest = new EmployerRequest("Samsung1",
+    // "https://samsung.com1", "samsung@gmail.com", logo)
+    // }
+
+    @Test
+    void deleteById() {
+        List<Employer> employers = employerService.findAll();
+        employers.forEach(employer -> employerService.delete(employer.getId()));
+        assertThat(employerService.findAll()).isEmpty();
+    }
+
+    @Test
+    void createLogoPath() {
+        String id = "testId";
+        String logoPath = employerService.createLogoPath(id);
+        assertThat(logoPath).isEqualTo("upload/employer_logo/testId");
     }
 }

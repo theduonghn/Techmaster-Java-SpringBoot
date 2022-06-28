@@ -28,22 +28,30 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "job")
 public class Job {
+  // BEGIN Attributes
   @Id
   @GeneratedValue(generator = "uuid")
   @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
   private String id;
+
   @ManyToOne(fetch = FetchType.LAZY)
   private Employer employer;
+
   private String title;
+
   private String description;
+
   @Enumerated(EnumType.STRING)
   private City city;
+
   @LastModifiedDate
   @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
   private LocalDateTime updated_at;
+
   @CreatedDate
   @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
   private LocalDateTime created_at;
+  // END Attributes
 
   public Job(Employer employer, String title, String description, City city, LocalDateTime updated_at,
       LocalDateTime created_at) {

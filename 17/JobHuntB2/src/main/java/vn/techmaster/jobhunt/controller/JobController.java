@@ -75,7 +75,7 @@ public class JobController {
     @PostMapping("/update/{id}")
     public String submitUpdateJob(@PathVariable String id, @ModelAttribute JobRequest jobRequest) {
         Employer employer = employerService.findById(jobRequest.getEmployerId());
-        jobService.update(id, jobRequest, employer);
+        jobService.update(jobRequest, employer);
         return REDIRECT_JOB_LIST;
     }
 

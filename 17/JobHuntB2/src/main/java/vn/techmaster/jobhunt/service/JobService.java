@@ -42,7 +42,8 @@ public class JobService {
         return jobRepository.save(job);
     }
 
-    public Job update(String id, JobRequest jobRequest, Employer employer) {
+    public Job update(JobRequest jobRequest, Employer employer) {
+        String id = jobRequest.getId();
         Job job = this.findById(id);
         job.setEmployer(employer);
         job.setTitle(jobRequest.getTitle());
@@ -64,7 +65,7 @@ public class JobService {
         jobRepository.delete(job);
     }
 
-    // Delete by instance
+    // Delete instance
     public void delete(Job job) {
         // Delete applicants of this job
         this.deleteApplicantsOf(job);

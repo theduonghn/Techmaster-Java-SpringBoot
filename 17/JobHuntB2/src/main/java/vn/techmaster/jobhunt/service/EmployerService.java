@@ -45,7 +45,7 @@ public class EmployerService {
         String logo_path;
         if (!employerRequest.getLogo().isEmpty()) {
             fileService.uploadEmployerLogo(id, employerRequest.getLogo());
-            logo_path = this.logoPathFromLogo(id);
+            logo_path = this.createLogoPath(id);
         } else {
             logo_path = employer.getLogo_path();
         }
@@ -69,7 +69,7 @@ public class EmployerService {
 
     }
 
-    public String logoPathFromLogo(String id) {
+    public String createLogoPath(String id) {
         return employerLogoPath + "/" + id;
     }
 }
