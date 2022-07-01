@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -28,38 +30,46 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "job")
 public class Job {
-  // BEGIN Attributes
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
-  private String id;
+    // BEGIN Attributes
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
+    private String id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Employer employer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employer employer;
 
-  private String title;
+    private String title;
 
-  private String description;
+    private String description;
 
-  @Enumerated(EnumType.STRING)
-  private City city;
+    @Enumerated(EnumType.STRING)
+    private City city;
 
-  @LastModifiedDate
-  @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-  private LocalDateTime updated_at;
+    @LastModifiedDate
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime updated_at;
 
-  @CreatedDate
-  @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-  private LocalDateTime created_at;
-  // END Attributes
+    @CreatedDate
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime created_at;
+    // END Attributes
 
-  public Job(Employer employer, String title, String description, City city, LocalDateTime updated_at,
-      LocalDateTime created_at) {
-    this.employer = employer;
-    this.title = title;
-    this.description = description;
-    this.city = city;
-    this.updated_at = updated_at;
-    this.created_at = created_at;
-  }
+    public Job(Employer employer, String title, String description, City city) {
+        this.employer = employer;
+        this.title = title;
+        this.description = description;
+        this.city = city;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.created_at = LocalDateTime.now();
+        this.updated_at = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updated_at = LocalDateTime.now();
+    }
 }

@@ -19,19 +19,19 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "employer")
 public class Employer {
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
-  private String id;
-  private String name;
-  private String logo_path;
-  private String website;
-  private String email;
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
+    private String id;
+    private String name;
+    private String logo_path;
+    private String website;
+    private String email;
 
-  public Employer(String name, String logo_path, String website, String email) {
-    this.name = name;
-    this.logo_path = logo_path;
-    this.website = website;
-    this.email = email;
-  }
+    public Employer(String name, String logo_path, String website, String email) {
+        this.name = name;
+        this.logo_path = logo_path;
+        this.website = website;
+        this.email = email;
+    }
 }

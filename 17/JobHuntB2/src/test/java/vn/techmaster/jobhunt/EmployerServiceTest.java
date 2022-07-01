@@ -25,7 +25,7 @@ class EmployerServiceTest {
     }
 
     @Test
-    void findById() {
+    void addAndFindById() {
         Employer employer = new Employer(
                 "Samsung",
                 "upload/employer_log/samsung",
@@ -38,17 +38,6 @@ class EmployerServiceTest {
         assertThat(foundedEmployer.getName()).isEqualTo(savedEmployer.getName());
         assertThat(foundedEmployer.getWebsite()).isEqualTo(savedEmployer.getWebsite());
         assertThat(foundedEmployer.getEmail()).isEqualTo(savedEmployer.getEmail());
-    }
-
-    @Test
-    void add() {
-        Employer employer = new Employer(
-                "Samsung",
-                "upload/employer_log/samsung",
-                "https://samsung.com",
-                "samsung@gmail.com");
-        employerService.add(employer);
-        assertThat(employerService.findAll()).size().isEqualTo(5);
     }
 
     // @Test

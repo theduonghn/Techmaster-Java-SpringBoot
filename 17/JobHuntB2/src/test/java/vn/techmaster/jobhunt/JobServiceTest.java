@@ -3,8 +3,6 @@ package vn.techmaster.jobhunt;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import java.time.LocalDateTime;
-
 import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
@@ -40,8 +38,7 @@ class JobServiceTest {
                 "https://samsung.com",
                 "samsung@gmail.com");
         employerService.add(employer);
-        Job job = new Job(employer, "Tester", "Automation tester at least 3 years of experience", City.HaNoi,
-                LocalDateTime.now(), LocalDateTime.now());
+        Job job = new Job(employer, "Tester", "Automation tester at least 3 years of experience", City.HaNoi);
         Job addedJob = jobService.add(job);
         Job foundedJob = jobService.findById(addedJob.getId());
         assertThat(foundedJob).isNotNull();
@@ -55,8 +52,7 @@ class JobServiceTest {
                 "https://samsung.com",
                 "samsung@gmail.com");
         employerService.add(employer);
-        Job job = new Job(employer, "Tester", "Automation tester at least 3 years of experience", City.HaNoi,
-                LocalDateTime.now(), LocalDateTime.now());
+        Job job = new Job(employer, "Tester", "Automation tester at least 3 years of experience", City.HaNoi);
         Job addedJob = jobService.add(job);
         Job foundedJob = jobService.findById(addedJob.getId());
         assertThat(foundedJob).isNotNull();
@@ -83,8 +79,7 @@ class JobServiceTest {
                 "samsung@gmail.com1");
         employerService.add(employer);
         employerService.add(employer1);
-        Job job = new Job(employer, "Tester", "Automation tester at least 3 years of experience", City.HaNoi,
-                LocalDateTime.now(), LocalDateTime.now());
+        Job job = new Job(employer, "Tester", "Automation tester at least 3 years of experience", City.HaNoi);
         Job addedJob = jobService.add(job);
         JobRequest jobRequest = new JobRequest();
 
@@ -113,8 +108,7 @@ class JobServiceTest {
                 "https://samsung.com",
                 "samsung@gmail.com");
         employerService.add(employer);
-        Job job = new Job(employer, "Tester", "Automation tester at least 3 years of experience", City.HaNoi,
-                LocalDateTime.now(), LocalDateTime.now());
+        Job job = new Job(employer, "Tester", "Automation tester at least 3 years of experience", City.HaNoi);
         Job addedJob = jobService.add(job);
         jobService.delete(addedJob.getId());
 
@@ -131,8 +125,7 @@ class JobServiceTest {
                 "https://samsung.com",
                 "samsung@gmail.com");
         employerService.add(employer);
-        Job job = new Job(employer, "Tester", "Automation tester at least 3 years of experience", City.HaNoi,
-                LocalDateTime.now(), LocalDateTime.now());
+        Job job = new Job(employer, "Tester", "Automation tester at least 3 years of experience", City.HaNoi);
         Job addedJob = jobService.add(job);
         jobService.delete(addedJob);
 

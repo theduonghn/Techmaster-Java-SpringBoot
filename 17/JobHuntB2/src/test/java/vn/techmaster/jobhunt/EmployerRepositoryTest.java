@@ -23,14 +23,14 @@ class EmployerRepositoryTest {
     }
 
     @Test
-    void findById() {
+    void saveAndFindById() {
         Employer employer = new Employer(
                 "Samsung",
                 "upload/employer_log/samsung",
                 "https://samsung.com",
                 "samsung@gmail.com");
-        Employer savedEmployer = employerRepository.saveAndFlush(employer);
-        assertThat(employerRepository.findById(savedEmployer.getId())).isNotEmpty();
+        Employer savedEmployer = employerRepository.save(employer);
+        assertThat(employerRepository.findById(savedEmployer.getId())).isNotNull();
         Employer foundedEmployer = employerRepository.findById(savedEmployer.getId()).get();
         assertThat(foundedEmployer.getId()).isEqualTo(savedEmployer.getId());
         assertThat(foundedEmployer.getName()).isEqualTo(savedEmployer.getName());
@@ -38,22 +38,11 @@ class EmployerRepositoryTest {
         assertThat(foundedEmployer.getEmail()).isEqualTo(savedEmployer.getEmail());
     }
 
-    @Test
-    void save() {
-        Employer employer = new Employer(
-                "Samsung",
-                "upload/employer_log/samsung",
-                "https://samsung.com",
-                "samsung@gmail.com");
-        employerRepository.saveAndFlush(employer);
-        assertThat(employerRepository.findAll()).size().isEqualTo(5);
-    }
-
     // @Test
     // void delete() {
     // List<Employer> employers = employerRepository.findAll();
-    // employerRepository.delete(employers.get(0));
-    // assertThat(employerRepository.findAll()).size().isEqualTo(3);
+    // employers.forEach(employer -> employerRepository.delete(employer));
+    // assertThat(employerRepository.findAll()).isEmpty();
     // }
 
 }

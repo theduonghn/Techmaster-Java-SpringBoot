@@ -52,8 +52,7 @@ public class JobController {
     @PostMapping("/add")
     public String submitAddJob(@ModelAttribute JobRequest jobRequest) {
         Employer employer = employerService.findById(jobRequest.getEmployerId());
-        Job job = new Job(employer, jobRequest.getTitle(), jobRequest.getDescription(), jobRequest.getCity(),
-                LocalDateTime.now(), LocalDateTime.now());
+        Job job = new Job(employer, jobRequest.getTitle(), jobRequest.getDescription(), jobRequest.getCity());
         jobService.add(job);
         return REDIRECT_JOB_LIST;
     }

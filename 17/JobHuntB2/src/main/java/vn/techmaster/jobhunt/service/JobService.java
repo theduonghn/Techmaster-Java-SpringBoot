@@ -1,6 +1,5 @@
 package vn.techmaster.jobhunt.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,7 +48,6 @@ public class JobService {
         job.setTitle(jobRequest.getTitle());
         job.setDescription(jobRequest.getDescription());
         job.setCity(jobRequest.getCity());
-        job.setUpdated_at(LocalDateTime.now());
         jobRepository.save(job);
         return job;
     }
