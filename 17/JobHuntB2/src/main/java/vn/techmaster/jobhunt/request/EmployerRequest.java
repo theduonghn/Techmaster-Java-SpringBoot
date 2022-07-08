@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployerRequest {
+    private String id;
     private String name;
     private String website;
     private String email;

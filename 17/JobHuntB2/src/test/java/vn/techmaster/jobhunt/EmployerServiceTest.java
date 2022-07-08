@@ -28,7 +28,7 @@ class EmployerServiceTest {
     void addAndFindById() {
         Employer employer = new Employer(
                 "Samsung",
-                "upload/employer_log/samsung",
+                "upload/employer_logo/samsung",
                 "https://samsung.com",
                 "samsung@gmail.com");
         Employer savedEmployer = employerService.add(employer);
@@ -36,21 +36,24 @@ class EmployerServiceTest {
         Employer foundedEmployer = employerService.findById(savedEmployer.getId());
         assertThat(foundedEmployer.getId()).isEqualTo(savedEmployer.getId());
         assertThat(foundedEmployer.getName()).isEqualTo(savedEmployer.getName());
+        assertThat(foundedEmployer.getLogoPath()).isEqualTo(savedEmployer.getLogoPath());
         assertThat(foundedEmployer.getWebsite()).isEqualTo(savedEmployer.getWebsite());
         assertThat(foundedEmployer.getEmail()).isEqualTo(savedEmployer.getEmail());
     }
 
-    // @Test
-    // void update() {
-    // Employer employer = new Employer(
-    // "Samsung",
-    // "upload/employer_log/samsung",
-    // "https://samsung.com",
-    // "samsung@gmail.com");
-    // employerService.add(employer);
-    // EmployerRequest employerRequest = new EmployerRequest("Samsung1",
-    // "https://samsung.com1", "samsung@gmail.com", logo)
-    // }
+    @Test
+    void updateInstance() {
+        Employer employer = new Employer(
+                "Samsung",
+                "upload/employer_logo/samsung",
+                "https://samsung.com",
+                "samsung@gmail.com");
+        Employer savedEmployer = employerService.add(employer);
+        savedEmployer.setLogoPath("upload/employer_logo/new");
+        employerService.update(savedEmployer);
+        Employer foundedEmployer = employerService.findById(savedEmployer.getId());
+        assertThat(foundedEmployer.getLogoPath()).isEqualTo("upload/employer_logo/new");
+    }
 
     @Test
     void deleteById() {

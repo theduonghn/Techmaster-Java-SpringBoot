@@ -1,7 +1,5 @@
 package vn.techmaster.jobhunt.controller;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,32 +45,31 @@ public class EmployerController {
 
     @PostMapping("/add")
     public String submitAddEmployer(@ModelAttribute EmployerRequest employerRequest) {
-        String id = UUID.randomUUID().toString();
         Employer employer = Employer.builder()
-                .id(id)
                 .name(employerRequest.getName())
                 .website(employerRequest.getWebsite())
                 .email(employerRequest.getEmail())
                 .build();
-        fileService.uploadEmployerLogo(employer.getId(), employerRequest.getLogo());
-        employer.setLogo_path(employerService.createLogoPath(employer.getId()));
         employerService.add(employer);
+        fileService.uploadEmployerLogo(employer.getId(), employerRequest.getLogo());
+        employer.setLogoPath(employerService.createLogoPath(employer.getId()));
+        employerService.update(employer);
         return REDIRECT_EMPLOYER_LIST;
     }
 
     @GetMapping("/update/{id}")
     public String updateEmployer(Model model, @PathVariable String id) {
         Employer employer = employerService.findById(id);
-        EmployerRequest employerRequest = new EmployerRequest(employer.getName(), employer.getWebsite(),
+        EmployerRequest employerRequest = new EmployerRequest(id, employer.getName(), employer.getWebsite(),
                 employer.getEmail(), null);
-        model.addAttribute("logo_path", employer.getLogo_path());
+        model.addAttribute("logo_path", employer.getLogoPath());
         model.addAttribute("employerRequest", employerRequest);
         return "employer_update";
     }
 
     @PostMapping("/update/{id}")
     public String submitUpdateEmployer(@PathVariable String id, @ModelAttribute EmployerRequest employerRequest) {
-        employerService.update(id, employerRequest);
+        employerService.update(employerRequest);
         return REDIRECT_EMPLOYER_LIST;
     }
 

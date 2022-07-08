@@ -1,5 +1,6 @@
 package vn.techmaster.jobhunt.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,13 +25,14 @@ public class Employer {
     @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
     private String name;
-    private String logo_path;
+    @Column(name = "logo_path")
+    private String logoPath;
     private String website;
     private String email;
 
-    public Employer(String name, String logo_path, String website, String email) {
+    public Employer(String name, String logoPath, String website, String email) {
         this.name = name;
-        this.logo_path = logo_path;
+        this.logoPath = logoPath;
         this.website = website;
         this.email = email;
     }

@@ -36,27 +36,36 @@ public class EmployerService {
         return oEmployer.get();
     }
 
+    // Add instance
     public Employer add(Employer employer) {
         return employerRepository.save(employer);
     }
 
-    public Employer update(String id, EmployerRequest employerRequest) {
+    // Update by employerRequest
+    public Employer update(EmployerRequest employerRequest) {
+        String id = employerRequest.getId();
         Employer employer = this.findById(id);
         String logo_path;
         if (!employerRequest.getLogo().isEmpty()) {
             fileService.uploadEmployerLogo(id, employerRequest.getLogo());
             logo_path = this.createLogoPath(id);
         } else {
-            logo_path = employer.getLogo_path();
+            logo_path = employer.getLogoPath();
         }
         employer.setName(employerRequest.getName());
         employer.setWebsite(employerRequest.getWebsite());
         employer.setEmail(employerRequest.getEmail());
-        employer.setLogo_path(logo_path);
+        employer.setLogoPath(logo_path);
         employerRepository.save(employer);
         return employer;
     }
 
+    // Update instance
+    public Employer update(Employer employer) {
+        return employerRepository.save(employer);
+    }
+
+    // Delete by id
     public void delete(String id) {
         Employer employer = this.findById(id);
 
