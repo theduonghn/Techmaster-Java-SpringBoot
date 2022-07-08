@@ -1,64 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+  th:replace="~{layout :: main-fragment(~{:: title}, ~{:: #main-content})}"
+>
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link th:replace="~{template :: bootstrap}" />
-    <link th:replace="~{template :: style}" />
     <title>Danh sách việc làm</title>
   </head>
   <body>
-    <header th:insert="~{template :: nav}"></header>
+    <th:block id="main-content">
+      <div class="container">
+        <h1>Danh sách việc làm</h1>
 
-    <div class="container">
-      <h1>Danh sách việc làm</h1>
-
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nhà tuyển dụng</th>
-            <th scope="col">Tiêu đề</th>
-            <th scope="col">Mô tả</th>
-            <th scope="col">Thành phố</th>
-            <th scope="col">Cập nhật lúc</th>
-            <th scope="col">Khởi tạo lúc</th>
-            <th scope="col">Tuỳ chọn</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="job, iStat:${jobs}">
-            <td th:text="${iStat.index} +1"></td>
-            <td th:text="${job.employer.name}"></td>
-            <td>
-              <a th:href="@{${'detail/' + job.id}}" th:text="${job.title}"></a>
-            </td>
-            <td th:text="${job.description}"></td>
-            <td th:text="${job.city.label}"></td>
-            <td th:text="${{job.updated_at}}"></td>
-            <td th:text="${{job.created_at}}"></td>
-            <td>
-              <form th:action="@{${'update/' + job.id}}" method="GET">
-                <input
-                  class="btn btn-sm btn-secondary"
-                  type="submit"
-                  value="Update"
-                />
-              </form>
-              <form th:action="@{${'delete/' + job.id}}" method="GET">
-                <input
-                  class="btn btn-sm btn-danger mt-1"
-                  type="submit"
-                  value="Delete"
-                />
-              </form>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <script th:replace="~{template :: bootstrap-js}"></script>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nhà tuyển dụng</th>
+              <th scope="col">Tiêu đề</th>
+              <th scope="col">Mô tả</th>
+              <th scope="col">Thành phố</th>
+              <th scope="col">Cập nhật lúc</th>
+              <th scope="col">Khởi tạo lúc</th>
+              <th scope="col">Tuỳ chọn</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="job, iStat:${jobs}">
+              <td th:text="${iStat.index} +1"></td>
+              <td th:text="${job.employer.name}"></td>
+              <td>
+                <a
+                  th:href="@{${'detail/' + job.id}}"
+                  th:text="${job.title}"
+                ></a>
+              </td>
+              <td th:text="${job.description}"></td>
+              <td th:text="${job.city.label}"></td>
+              <td th:text="${{job.updated_at}}"></td>
+              <td th:text="${{job.created_at}}"></td>
+              <td>
+                <form th:action="@{${'update/' + job.id}}" method="GET">
+                  <input
+                    class="btn btn-sm btn-secondary"
+                    type="submit"
+                    value="Update"
+                  />
+                </form>
+                <form th:action="@{${'delete/' + job.id}}" method="GET">
+                  <input
+                    class="btn btn-sm btn-danger mt-1"
+                    type="submit"
+                    value="Delete"
+                  />
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </th:block>
   </body>
 </html>

@@ -1,60 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+  th:replace="~{layout :: main-fragment(~{:: title}, ~{:: #main-content})}"
+>
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link th:replace="~{template :: bootstrap}" />
-    <link th:replace="~{template :: style}" />
     <title>Cập nhật ứng viên</title>
   </head>
   <body>
-    <header th:insert="~{template :: nav}"></header>
+    <th:block id="main-content">
+      <div class="container mb-3">
+        <h1>Cập nhật ứng viên</h1>
 
-    <div class="container mb-3">
-      <h1>Cập nhật ứng viên</h1>
-
-      <form
-        class="col-6"
-        action=""
-        th:object="${applicantRequest}"
-        method="POST"
-      >
-        <div class="mb-3">
-          <label for="jobId" class="form-label">Việc làm</label>
-          <select class="form-select" th:field="*{jobId}">
-            <option
-              th:each="job : ${jobs}"
-              th:value="${job.id}"
-              th:text="${job.title + ' - ' + job.employer.name}"
-              th:selected="${jobId == job.id}"
-            ></option>
-          </select>
-          <label for="name" class="form-label">Tên</label>
-          <input type="text" class="form-control" th:field="*{name}" />
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" th:field="*{email}" />
-          <label for="phone" class="form-label">Điện thoại</label>
-          <input type="tel" class="form-control" th:field="*{phone}" />
-          <label for="skillIds" class="form-label">Kỹ năng</label>
-          <div th:each="skill : ${skills}">
-            <input
-              type="checkbox"
-              th:field="*{skillIds}"
-              th:value="${skill.id}"
-            />
-            <label th:for="${skillIds}" th:text="${skill.name}"> </label>
+        <form
+          class="col-6"
+          action=""
+          th:object="${applicantRequest}"
+          method="POST"
+        >
+          <div class="mb-3">
+            <label for="jobId" class="form-label">Việc làm</label>
+            <select class="form-select" th:field="*{jobId}">
+              <option
+                th:each="job : ${jobs}"
+                th:value="${job.id}"
+                th:text="${job.title + ' - ' + job.employer.name}"
+                th:selected="${jobId == job.id}"
+              ></option>
+            </select>
+            <label for="name" class="form-label">Tên</label>
+            <input type="text" class="form-control" th:field="*{name}" />
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" th:field="*{email}" />
+            <label for="phone" class="form-label">Điện thoại</label>
+            <input type="tel" class="form-control" th:field="*{phone}" />
+            <label for="skillIds" class="form-label">Kỹ năng</label>
+            <div th:each="skill : ${skills}">
+              <input
+                type="checkbox"
+                th:field="*{skillIds}"
+                th:value="${skill.id}"
+              />
+              <label th:for="${skillIds}" th:text="${skill.name}"> </label>
+            </div>
+            <label for="applyContent" class="form-label"
+              >Nội dung ứng tuyển</label
+            >
+            <textarea
+              class="form-control"
+              th:field="*{applyContent}"
+            ></textarea>
           </div>
-          <label for="applyContent" class="form-label"
-            >Nội dung ứng tuyển</label
-          >
-          <textarea class="form-control" th:field="*{applyContent}"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="reset" class="btn btn-danger">Reset</button>
-      </form>
-    </div>
-
-    <script th:replace="~{template :: bootstrap-js}"></script>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="reset" class="btn btn-danger">Reset</button>
+        </form>
+      </div>
+    </th:block>
   </body>
 </html>

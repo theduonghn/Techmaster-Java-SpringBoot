@@ -1,41 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+  th:replace="~{layout :: main-fragment(~{:: title}, ~{:: #main-content})}"
+>
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link th:replace="~{template :: bootstrap}" />
-    <link th:replace="~{template :: style}" />
     <title>Thêm nhà tuyển dụng</title>
   </head>
   <body>
-    <header th:insert="~{template :: nav}"></header>
+    <th:block id="main-content">
+      <div class="container">
+        <h1>Thêm nhà tuyển dụng</h1>
 
-    <div class="container">
-      <h1>Thêm nhà tuyển dụng</h1>
-
-      <form
-        class="col-3"
-        action=""
-        th:object="${employerRequest}"
-        method="POST"
-        enctype="multipart/form-data"
-      >
-        <div class="mb-3">
-          <label for="name" class="form-label">Name</label>
-          <input type="text" class="form-control" th:field="*{name}" />
-          <label for="logo" class="form-label">Logo</label>
-          <input type="file" class="form-control" th:field="*{logo}" />
-          <label for="website" class="form-label">Website</label>
-          <input type="url" class="form-control" th:field="*{website}" />
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" th:field="*{email}" />
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="reset" class="btn btn-danger">Reset</button>
-      </form>
-    </div>
-
-    <script th:replace="~{template :: bootstrap-js}"></script>
+        <form
+          class="col-3"
+          action=""
+          th:object="${employerRequest}"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" th:field="*{name}" />
+            <label for="logo" class="form-label">Logo</label>
+            <input type="file" class="form-control" th:field="*{logo}" />
+            <label for="website" class="form-label">Website</label>
+            <input type="url" class="form-control" th:field="*{website}" />
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" th:field="*{email}" />
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="reset" class="btn btn-danger">Reset</button>
+        </form>
+      </div>
+    </th:block>
   </body>
 </html>

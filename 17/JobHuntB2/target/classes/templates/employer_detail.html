@@ -1,46 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+  th:replace="~{layout :: main-fragment(~{:: title}, ~{:: #main-content})}"
+>
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link th:replace="~{template :: bootstrap}" />
-    <link th:replace="~{template :: style}" />
     <title th:text="${employer.name}">Chi tiết nhà tuyển dụng</title>
   </head>
   <body>
-    <header th:insert="~{template :: nav}"></header>
-
-    <div class="container">
-      <h1 th:text="${employer.name}">Chi tiết nhà tuyển dụng</h1>
-      <img th:src="|/${employer.logo_path}|" alt="" class="logo-small" />
-      <table class="table table-bordered mt-4">
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Name</td>
-            <td th:text="${employer.name}"></td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Website</td>
-            <td>
-              <a
-                th:href="${employer.website}"
-                th:text="${employer.website}"
-                target="_blank"
-              ></a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Email</td>
-            <td th:text="${employer.email}"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <script th:replace="~{template :: bootstrap-js}"></script>
+    <th:block id="main-content">
+      <div class="container">
+        <h1 th:text="${employer.name}">Chi tiết nhà tuyển dụng</h1>
+        <img th:src="|/${employer.logo_path}|" alt="" class="logo-small" />
+        <table class="table table-bordered mt-4">
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Name</td>
+              <td th:text="${employer.name}"></td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Website</td>
+              <td>
+                <a
+                  th:href="${employer.website}"
+                  th:text="${employer.website}"
+                  target="_blank"
+                ></a>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Email</td>
+              <td th:text="${employer.email}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </th:block>
   </body>
 </html>

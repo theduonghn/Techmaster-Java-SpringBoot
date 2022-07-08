@@ -1,49 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+  th:replace="~{layout :: main-fragment(~{:: title}, ~{:: #main-content})}"
+>
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link th:replace="~{template :: bootstrap}" />
-    <link th:replace="~{template :: style}" />
     <title>Chi tiết ứng viên</title>
   </head>
   <body>
-    <header th:insert="~{template :: nav}"></header>
+    <th:block id="main-content">
+      <div class="container">
+        <h1 th:text="${applicant.name}"></h1>
 
-    <div class="container">
-      <h1 th:text="${applicant.name}"></h1>
-
-      <div class="col-6">
-        <table class="table table-bordered">
-          <tr>
-            <th>Công việc ứng tuyển</th>
-            <td th:text="${applicant.job.title}"></td>
-          </tr>
-          <tr>
-            <th>Nhà tuyển dụng</th>
-            <td th:text="${applicant.job.employer.name}"></td>
-          </tr>
-          <tr>
-            <th>Email</th>
-            <td th:text="${applicant.email}"></td>
-          </tr>
-          <tr>
-            <th>Phone</th>
-            <td th:text="${applicant.phone}"></td>
-          </tr>
-          <tr>
-            <th>Kỹ năng</th>
-            <td th:text="${skills}"></td>
-          </tr>
-          <tr>
-            <th>Nội dung ứng tuyển</th>
-            <td th:text="${applicant.applyContent}"></td>
-          </tr>
-        </table>
+        <div class="col-6">
+          <table class="table table-bordered">
+            <tr>
+              <th>Công việc ứng tuyển</th>
+              <td th:text="${applicant.job.title}"></td>
+            </tr>
+            <tr>
+              <th>Nhà tuyển dụng</th>
+              <td th:text="${applicant.job.employer.name}"></td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td th:text="${applicant.email}"></td>
+            </tr>
+            <tr>
+              <th>Phone</th>
+              <td th:text="${applicant.phone}"></td>
+            </tr>
+            <tr>
+              <th>Kỹ năng</th>
+              <td th:text="${skills}"></td>
+            </tr>
+            <tr>
+              <th>Nội dung ứng tuyển</th>
+              <td th:text="${applicant.applyContent}"></td>
+            </tr>
+          </table>
+        </div>
       </div>
-    </div>
-
-    <script th:replace="~{template :: bootstrap-js}"></script>
+    </th:block>
   </body>
 </html>

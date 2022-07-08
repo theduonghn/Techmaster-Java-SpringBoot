@@ -1,60 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+  th:replace="~{layout :: main-fragment(~{:: title}, ~{:: #main-content})}"
+>
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link th:replace="~{template :: bootstrap}" />
-    <link th:replace="~{template :: style}" />
     <title>Chi tiết việc làm</title>
   </head>
   <body>
-    <header th:insert="~{template :: nav}"></header>
+    <th:block id="main-content">
+      <div class="container">
+        <h1 th:text="${job.title}"></h1>
 
-    <div class="container">
-      <h1 th:text="${job.title}"></h1>
-
-      <div class="col-6">
-        <table class="table table-bordered">
-          <tr>
-            <th>Nhà tuyển dụng</th>
-            <td>
-              <p th:text="${employer.name}"></p>
-              <img
-                th:src="@{${'~/' + employer.logo_path}}"
-                alt=""
-                class="logo-small"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>Mô tả</th>
-            <td>
-              <p th:text="${job.description}"></p>
-            </td>
-          </tr>
-          <tr>
-            <th>Thành phố</th>
-            <td>
-              <p th:text="${job.city.label}"></p>
-            </td>
-          </tr>
-          <tr>
-            <th>Cập nhật lúc</th>
-            <td>
-              <p th:text="${{job.updated_at}}"></p>
-            </td>
-          </tr>
-          <tr>
-            <th>Khởi tạo lúc</th>
-            <td>
-              <p th:text="${{job.created_at}}"></p>
-            </td>
-          </tr>
-        </table>
+        <div class="col-6">
+          <table class="table table-bordered">
+            <tr>
+              <th>Nhà tuyển dụng</th>
+              <td>
+                <p th:text="${employer.name}"></p>
+                <img
+                  th:src="@{${'~/' + employer.logo_path}}"
+                  alt=""
+                  class="logo-small"
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>Mô tả</th>
+              <td>
+                <p th:text="${job.description}"></p>
+              </td>
+            </tr>
+            <tr>
+              <th>Thành phố</th>
+              <td>
+                <p th:text="${job.city.label}"></p>
+              </td>
+            </tr>
+            <tr>
+              <th>Cập nhật lúc</th>
+              <td>
+                <p th:text="${{job.updated_at}}"></p>
+              </td>
+            </tr>
+            <tr>
+              <th>Khởi tạo lúc</th>
+              <td>
+                <p th:text="${{job.created_at}}"></p>
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
-    </div>
-
-    <script th:replace="~{template :: bootstrap-js}"></script>
+    </th:block>
   </body>
 </html>

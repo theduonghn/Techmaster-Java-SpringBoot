@@ -1,20 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+  th:replace="~{layout :: main-fragment(~{:: title}, ~{:: #main-content})}"
+>
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link th:replace="~{template :: bootstrap}" />
-    <link th:replace="~{template :: style}" />
     <title>Thêm ứng viên thành công</title>
   </head>
   <body>
-    <header th:insert="~{template :: nav}"></header>
-
-    <div class="container">
-      <h1>Thêm ứng viên thành công</h1>
-    </div>
-
-    <script th:replace="~{template :: bootstrap-js}"></script>
+    <th:block id="main-content">
+      <div class="container">
+        <h1>Thêm ứng viên thành công</h1>
+      </div>
+    </th:block>
   </body>
 </html>
