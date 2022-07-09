@@ -1,8 +1,11 @@
 package vn.techmaster.jobhunt.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,7 +52,14 @@ public class JobController {
     }
 
     @PostMapping("/add")
-    public String submitAddJob(@ModelAttribute JobRequest jobRequest) {
+    public String submitAddJob(Model model, @Valid @ModelAttribute JobRequest jobRequest,
+            BindingResult result) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("employers", employerService.findAll());
+            return "job_add";
+        }
+
         Employer employer = employerService.findById(jobRequest.getEmployerId());
         Job job = new Job(employer, jobRequest.getTitle(), jobRequest.getDescription(), jobRequest.getCity());
         jobService.add(job);
@@ -71,7 +81,15 @@ public class JobController {
     }
 
     @PostMapping("/update/{id}")
-    public String submitUpdateJob(@PathVariable String id, @ModelAttribute JobRequest jobRequest) {
+    public String submitUpdateJob(Model model, @PathVariable String id,
+            @Valid @ModelAttribute JobRequest jobRequest,
+            BindingResult result) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("employers", employerService.findAll());
+            return "job_update";
+        }
+
         Employer employer = employerService.findById(jobRequest.getEmployerId());
         jobService.update(jobRequest, employer);
         return REDIRECT_JOB_LIST;

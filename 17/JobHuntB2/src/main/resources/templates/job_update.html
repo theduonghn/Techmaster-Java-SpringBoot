@@ -13,28 +13,68 @@
 
         <form class="col-3" action="" th:object="${jobRequest}" method="POST">
           <div class="mb-3">
-            <label for="employerId" class="form-label">Nhà tuyển dụng</label>
-            <select class="form-select" th:field="*{employerId}">
-              <option
-                th:each="employer : ${employers}"
-                th:value="${employer.id}"
-                th:text="${employer.name}"
-                th:selected="${jobRequest.employerId == employer.id}"
-              ></option>
-            </select>
-            <label for="title" class="form-label">Tiêu đề</label>
-            <input type="text" class="form-control" th:field="*{title}" />
-            <label for="description" class="form-label">Mô tả</label>
-            <input type="text" class="form-control" th:field="*{description}" />
-            <label for="city" class="form-label">Thành phố</label>
-            <select class="form-select" th:field="*{city}">
-              <option
-                th:each="city : ${T(vn.techmaster.jobhunt.model.City).values()}"
-                th:value="${city}"
-                th:text="${city.label}"
-                th:selected="${jobRequest.city.label == city.label}"
-              ></option>
-            </select>
+            <div class="form-group">
+              <label for="employerId" class="form-label">Nhà tuyển dụng</label>
+              <select class="form-select" th:field="*{employerId}">
+                <option
+                  th:each="employer : ${employers}"
+                  th:value="${employer.id}"
+                  th:text="${employer.name}"
+                  th:selected="${jobRequest.employerId == employer.id}"
+                ></option>
+              </select>
+              <div
+                class="text-danger"
+                th:if="${#fields.hasErrors('employerId')}"
+                th:errors="*{employerId}"
+              >
+                employerId error
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="title" class="form-label">Tiêu đề</label>
+              <input type="text" class="form-control" th:field="*{title}" />
+              <div
+                class="text-danger"
+                th:if="${#fields.hasErrors('title')}"
+                th:errors="*{title}"
+              >
+                title error
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description" class="form-label">Mô tả</label>
+              <input
+                type="text"
+                class="form-control"
+                th:field="*{description}"
+              />
+              <div
+                class="text-danger"
+                th:if="${#fields.hasErrors('description')}"
+                th:errors="*{description}"
+              >
+                description error
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="city" class="form-label">Thành phố</label>
+              <select class="form-select" th:field="*{city}">
+                <option
+                  th:each="city : ${T(vn.techmaster.jobhunt.model.City).values()}"
+                  th:value="${city}"
+                  th:text="${city.label}"
+                  th:selected="${jobRequest.city.label == city.label}"
+                ></option>
+              </select>
+              <div
+                class="text-danger"
+                th:if="${#fields.hasErrors('city')}"
+                th:errors="*{city}"
+              >
+                city error
+              </div>
+            </div>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
           <button type="reset" class="btn btn-danger">Reset</button>
