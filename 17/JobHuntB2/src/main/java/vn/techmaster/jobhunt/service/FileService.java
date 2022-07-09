@@ -3,6 +3,7 @@ package vn.techmaster.jobhunt.service;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -76,7 +77,7 @@ public class FileService {
         }
     }
 
-    // Read file
+    // Read logo
     public byte[] readEmployerLogo(String id) {
         // Lấy đường dẫn file tương ứng với id
         Path path = employerLogoPath.resolve(id);
@@ -99,6 +100,15 @@ public class FileService {
             }
         } catch (Exception e) {
             throw new StorageException("Lỗi khi đọc file " + id);
+        }
+    }
+
+    // Delete logo
+    public void deleteLogo(String logoPath) {
+        try {
+            Files.deleteIfExists(Paths.get(logoPath));
+        } catch (IOException e) {
+            throw new StorageException("Lỗi khi xoá file " + logoPath);
         }
     }
 }

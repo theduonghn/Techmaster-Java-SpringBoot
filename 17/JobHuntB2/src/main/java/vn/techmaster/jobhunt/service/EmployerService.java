@@ -66,7 +66,7 @@ public class EmployerService {
     }
 
     // Delete by id
-    public void delete(String id) {
+    public Employer delete(String id) {
         Employer employer = this.findById(id);
 
         // Delete jobs of this employer
@@ -76,6 +76,7 @@ public class EmployerService {
         // Delete employer
         employerRepository.delete(employer);
 
+        return employer;
     }
 
     public String createLogoPath(String id) {

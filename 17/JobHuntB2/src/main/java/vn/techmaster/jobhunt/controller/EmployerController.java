@@ -95,7 +95,8 @@ public class EmployerController {
 
     @GetMapping("/delete/{id}")
     public String deleteEmployer(@PathVariable String id) {
-        employerService.delete(id);
+        Employer employer = employerService.delete(id);
+        fileService.deleteLogo(employer.getLogoPath());
         return REDIRECT_EMPLOYER_LIST;
     }
 }
