@@ -1,8 +1,11 @@
 package vn.techmaster.jobhunt.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,13 +47,24 @@ public class EmployerController {
     }
 
     @PostMapping("/add")
-    public String submitAddEmployer(@ModelAttribute EmployerRequest employerRequest) {
+    public String submitAddEmployer(@Valid @ModelAttribute EmployerRequest employerRequest,
+            BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "employer_add";
+        }
+
         Employer employer = Employer.builder()
                 .name(employerRequest.getName())
                 .website(employerRequest.getWebsite())
                 .email(employerRequest.getEmail())
                 .build();
         employerService.add(employer);
+
+        if (employerRequest.getLogo().isEmpty()) {
+            return REDIRECT_EMPLOYER_LIST;
+        }
+
         fileService.uploadEmployerLogo(employer.getId(), employerRequest.getLogo());
         employer.setLogoPath(employerService.createLogoPath(employer.getId()));
         employerService.update(employer);
@@ -68,7 +82,13 @@ public class EmployerController {
     }
 
     @PostMapping("/update/{id}")
-    public String submitUpdateEmployer(@PathVariable String id, @ModelAttribute EmployerRequest employerRequest) {
+    public String submitUpdateEmployer(@PathVariable String id, @Valid @ModelAttribute EmployerRequest employerRequest,
+            BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "employer_update";
+        }
+
         employerService.update(employerRequest);
         return REDIRECT_EMPLOYER_LIST;
     }

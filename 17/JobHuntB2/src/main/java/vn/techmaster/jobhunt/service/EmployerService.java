@@ -45,17 +45,17 @@ public class EmployerService {
     public Employer update(EmployerRequest employerRequest) {
         String id = employerRequest.getId();
         Employer employer = this.findById(id);
-        String logo_path;
+        String logoPath;
         if (!employerRequest.getLogo().isEmpty()) {
             fileService.uploadEmployerLogo(id, employerRequest.getLogo());
-            logo_path = this.createLogoPath(id);
+            logoPath = this.createLogoPath(id);
         } else {
-            logo_path = employer.getLogoPath();
+            logoPath = employer.getLogoPath();
         }
         employer.setName(employerRequest.getName());
         employer.setWebsite(employerRequest.getWebsite());
         employer.setEmail(employerRequest.getEmail());
-        employer.setLogoPath(logo_path);
+        employer.setLogoPath(logoPath);
         employerRepository.save(employer);
         return employer;
     }
