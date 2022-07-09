@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form
+      th:fragment="form"
+      class="col-3"
+      action=""
+      th:object="${employerRequest}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" th:field="*{name}" />
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('name')}"
+            th:errors="*{name}"
+          >
+            name error
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="logo" class="form-label">Logo</label>
+          <img th:src="|/${logo_path}|" alt="" class="logo-small" />
+          <input type="file" class="form-control" th:field="*{logo}" />
+        </div>
+        <div class="form-group">
+          <label for="website" class="form-label">Website</label>
+          <input type="url" class="form-control" th:field="*{website}" />
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('website')}"
+            th:errors="*{website}"
+          >
+            website error
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input type="text" class="form-control" th:field="*{email}" />
+          <div
+            class="text-danger"
+            th:if="${#fields.hasErrors('email')}"
+            th:errors="*{email}"
+          >
+            email error
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="reset" class="btn btn-danger">Reset</button>
+    </form>
+  </body>
+</html>

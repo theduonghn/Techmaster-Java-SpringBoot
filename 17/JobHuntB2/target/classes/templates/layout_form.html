@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="main-fragment(title, heading, form)">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap CSS -->
+    <link th:replace="~{template :: bootstrap}" />
+    <!-- Custom CSS -->
+    <link th:replace="~{template :: style}" />
+    <title th:replace="${title}">Document</title>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header th:insert="~{template :: nav}"></header>
+
+    <!-- CONTENT -->
+    <div class="container">
+      <h1 th:replace="${heading}">Heading</h1>
+      <form th:replace="${form}">Form</form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script th:replace="~{template :: bootstrap-js}"></script>
+  </body>
+</html>

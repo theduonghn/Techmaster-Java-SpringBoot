@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html
   lang="en"
-  th:replace="~{applicant_form_layout :: applicant-form-fragment(~{:: title}, ~{:: h1})}"
+  th:replace="~{layout_form :: main-fragment(~{:: title}, ~{:: h1}, ~{applicant_form_template :: form})}"
 >
   <head>
     <title>Cập nhật ứng viên</title>
