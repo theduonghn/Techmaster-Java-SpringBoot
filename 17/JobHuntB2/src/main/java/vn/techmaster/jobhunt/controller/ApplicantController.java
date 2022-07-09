@@ -2,9 +2,12 @@ package vn.techmaster.jobhunt.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,7 +61,16 @@ public class ApplicantController {
     }
 
     @PostMapping("/add")
-    public String submitAddApplicant(@ModelAttribute ApplicantRequest applicantRequest) {
+    public String submitAddApplicant(Model model, @Valid @ModelAttribute ApplicantRequest applicantRequest,
+            BindingResult result) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("jobs", jobService.findAll());
+            model.addAttribute("skills", skillService.findAll());
+            model.addAttribute("employerService", employerService);
+            return "applicant_add";
+        }
+
         Job job = jobService.findById(applicantRequest.getJobId());
         List<Skill> skills = applicantRequest.getSkillIds().stream()
                 .map(id -> skillService.findById(id)).toList();
@@ -81,7 +93,15 @@ public class ApplicantController {
     }
 
     @PostMapping("/update/{id}")
-    public String submitUpdateApplicant(@PathVariable String id, @ModelAttribute ApplicantRequest applicantRequest) {
+    public String submitUpdateApplicant(Model model, @PathVariable String id,
+            @Valid @ModelAttribute ApplicantRequest applicantRequest, BindingResult result) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("jobs", jobService.findAll());
+            model.addAttribute("skills", skillService.findAll());
+            return "applicant_update";
+        }
+
         Job job = jobService.findById(applicantRequest.getJobId());
         List<Skill> skills = applicantRequest.getSkillIds().stream()
                 .map(skillId -> skillService.findById(skillId)).toList();

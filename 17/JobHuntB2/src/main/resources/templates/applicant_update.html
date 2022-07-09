@@ -18,37 +18,91 @@
           method="POST"
         >
           <div class="mb-3">
-            <label for="jobId" class="form-label">Việc làm</label>
-            <select class="form-select" th:field="*{jobId}">
-              <option
-                th:each="job : ${jobs}"
-                th:value="${job.id}"
-                th:text="${job.title + ' - ' + job.employer.name}"
-                th:selected="${jobId == job.id}"
-              ></option>
-            </select>
-            <label for="name" class="form-label">Tên</label>
-            <input type="text" class="form-control" th:field="*{name}" />
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" th:field="*{email}" />
-            <label for="phone" class="form-label">Điện thoại</label>
-            <input type="tel" class="form-control" th:field="*{phone}" />
-            <label for="skillIds" class="form-label">Kỹ năng</label>
-            <div th:each="skill : ${skills}">
-              <input
-                type="checkbox"
-                th:field="*{skillIds}"
-                th:value="${skill.id}"
-              />
-              <label th:for="${skillIds}" th:text="${skill.name}"> </label>
+            <div class="form-group">
+              <label for="jobId" class="form-label">Việc làm</label>
+              <select class="form-select" th:field="*{jobId}">
+                <option
+                  th:each="job : ${jobs}"
+                  th:value="${job.id}"
+                  th:text="${job.title + ' - ' + job.employer.name}"
+                  th:selected="${jobId == job.id}"
+                ></option>
+              </select>
+              <div
+                class="text-danger"
+                th:if="${#fields.hasErrors('jobId')}"
+                th:errors="*{jobId}"
+              >
+                jobId error
+              </div>
             </div>
-            <label for="applyContent" class="form-label"
-              >Nội dung ứng tuyển</label
-            >
-            <textarea
-              class="form-control"
-              th:field="*{applyContent}"
-            ></textarea>
+            <div class="form-group">
+              <label for="name" class="form-label">Tên</label>
+              <input type="text" class="form-control" th:field="*{name}" />
+              <div
+                class="text-danger"
+                th:if="${#fields.hasErrors('name')}"
+                th:errors="*{name}"
+              >
+                name error
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email" class="form-label">Email</label>
+              <input type="text" class="form-control" th:field="*{email}" />
+              <div
+                class="text-danger"
+                th:if="${#fields.hasErrors('email')}"
+                th:errors="*{email}"
+              >
+                email error
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="phone" class="form-label">Điện thoại</label>
+              <input type="tel" class="form-control" th:field="*{phone}" />
+              <div
+                class="text-danger"
+                th:if="${#fields.hasErrors('phone')}"
+                th:errors="*{phone}"
+              >
+                phone error
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="skillIds" class="form-label">Kỹ năng</label>
+              <div th:each="skill : ${skills}">
+                <input
+                  type="checkbox"
+                  th:field="*{skillIds}"
+                  th:value="${skill.id}"
+                />
+                <label th:for="${skillIds}" th:text="${skill.name}"> </label>
+              </div>
+              <div
+                class="text-danger"
+                th:if="${#fields.hasErrors('skillIds')}"
+                th:errors="*{skillIds}"
+              >
+                skillIds error
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="applyContent" class="form-label"
+                >Nội dung ứng tuyển</label
+              >
+              <textarea
+                class="form-control"
+                th:field="*{applyContent}"
+              ></textarea>
+              <div
+                class="text-danger"
+                th:if="${#fields.hasErrors('applyContent')}"
+                th:errors="*{applyContent}"
+              >
+                applyContent error
+              </div>
+            </div>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
           <button type="reset" class="btn btn-danger">Reset</button>
