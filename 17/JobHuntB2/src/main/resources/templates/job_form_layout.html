@@ -10,7 +10,7 @@
   <body>
     <th:block id="main-content">
       <div class="container">
-        <h1>Thêm / Cập nhật việc làm</h1>
+        <h1 th:replace="${heading}">Thêm / Cập nhật việc làm</h1>
 
         <form class="col-3" action="" th:object="${jobRequest}" method="POST">
           <div class="mb-3">
