@@ -1,66 +1,12 @@
 <!DOCTYPE html>
 <html
   lang="en"
-  th:replace="~{layout :: main-fragment(~{:: title}, ~{:: #main-content})}"
+  th:replace="~{employer_form_layout :: employer-form-fragment(~{:: title}, ~{:: h1})}"
 >
   <head>
     <title>Cập nhật nhà tuyển dụng</title>
   </head>
   <body>
-    <th:block id="main-content">
-      <div class="container">
-        <h1>Cập nhật nhà tuyển dụng</h1>
-        <form
-          class="col-3"
-          action=""
-          th:object="${employerRequest}"
-          method="POST"
-          enctype="multipart/form-data"
-        >
-          <div class="mb-3">
-            <div class="form-group">
-              <label for="name" class="form-label">Name</label>
-              <input type="text" class="form-control" th:field="*{name}" />
-              <div
-                class="text-danger"
-                th:if="${#fields.hasErrors('name')}"
-                th:errors="*{name}"
-              >
-                Name Error
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="logo" class="form-label">Logo</label>
-              <img th:src="|/${logo_path}|" alt="" class="logo-small" />
-              <input type="file" class="form-control" th:field="*{logo}" />
-            </div>
-            <div class="form-group">
-              <label for="website" class="form-label">Website</label>
-              <input type="url" class="form-control" th:field="*{website}" />
-              <div
-                class="text-danger"
-                th:if="${#fields.hasErrors('website')}"
-                th:errors="*{website}"
-              >
-                Website Error
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="email" class="form-label">Email</label>
-              <input type="text" class="form-control" th:field="*{email}" />
-              <div
-                class="text-danger"
-                th:if="${#fields.hasErrors('email')}"
-                th:errors="*{email}"
-              >
-                Email Error
-              </div>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-          <button type="reset" class="btn btn-danger">Reset</button>
-        </form>
-      </div>
-    </th:block>
+    <h1>Cập nhật nhà tuyển dụng</h1>
   </body>
 </html>
